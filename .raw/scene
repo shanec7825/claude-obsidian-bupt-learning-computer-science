@@ -1,0 +1,127 @@
+// scene.cpp
+#include "scene.h"
+#include "render.h"
+#include "input.h"
+
+// --- MenuScene ---
+void MenuScene::update()
+{
+    if (_showing_difficulty)
+    {
+        if (key_pressed('1'))
+        {
+            _selected_difficulty = AI_EASY;
+            selected_mode = MODE_BATTLE;
+            _next = SCENE_PLAY;
+        }
+        else if (key_pressed('2'))
+        {
+            _selected_difficulty = AI_NORMAL;
+            selected_mode = MODE_BATTLE;
+            _next = SCENE_PLAY;
+        }
+        else if (key_pressed('3'))
+        {
+            _selected_difficulty = AI_HARD;
+            selected_mode = MODE_BATTLE;
+            _next = SCENE_PLAY;
+        }
+        else if (key_pressed(VK_ESCAPE))
+        {
+            _showing_difficulty = false;
+        }
+        return;
+    }
+
+    if (key_pressed('1'))
+    {
+        selected_mode = MODE_CLASSIC;
+        _next = SCENE_PLAY;
+    }
+    else if (key_pressed('2'))
+    {
+        selected_mode = MODE_PVP;
+        _next = SCENE_PLAY;
+    }
+    else if (key_pressed('3'))
+    {
+        _showing_difficulty = true;
+    }
+    else if (key_pressed(VK_ESCAPE))
+    {
+        _next = SCENE_EXIT;
+    }
+}
+void MenuScene::render()
+{
+    if (_showing_difficulty)
+        draw_difficulty_menu();
+    else
+        draw_menu();
+}
+
+// --- PlayScene ---
+void PlayScene::update()
+{
+    // Handle input
+    if (key_pressed(VK_ESCAPE))
+    {
+        _next = SCENE_MENU;
+        return;
+    }
+    if (key_pressed('R'))
+    {
+        restart_game();
+        return;
+    }
+    if (key_pressed(VK_SPACE) && _game.started && !_game.game_over)
+        _game.paused = !_game.paused;
+    if (!_game.game_over)
+    {
+        // Player 1: WASD
+        if (key_pressed('W'))
+            set_direction(&_game, UP);
+        else if (key_pressed('S'))
+            set_direction(&_game, DOWN);
+        else if (key_pressed('A'))
+            set_direction(&_game, LEFT);
+        else if (key_pressed('D'))
+            set_direction(&_game, RIGHT);
+
+        // Player 2 (PvP only): Arrow keys
+        if (_game.mode == MODE_PVP && _game.ai_is_alive)
+        {
+            if (key_pressed(VK_UP))
+                set_p2_direction(&_game, UP);
+            else if (key_pressed(VK_DOWN))
+                set_p2_direction(&_game, DOWN);
+            else if (key_pressed(VK_LEFT))
+                set_p2_direction(&_game, LEFT);
+            else if (key_pressed(VK_RIGHT))
+                set_p2_direction(&_game, RIGHT);
+        }
+    }
+
+    // Timed movement with speed-up support
+    DWORD now = GetTickCount();
+    DWORD interval = MOVE_INTERVAL_MS;
+
+    // Speed-up: hold Shift or F to accelerate
+    if (key_held(VK_SHIFT) || key_held('F'))
+        interval = MOVE_INTERVAL_MS / 4;  // 40ms = 4x speed
+
+    if (now - _last_move >= interval)
+    {
+        if (_game.mode == MODE_PVP && !_game.game_over)
+            move_pvp_snakes(&_game);
+        else if (_game.mode == MODE_BATTLE && !_game.game_over)
+            move_battle_snakes(&_game);
+        else
+            move_snake(&_game);
+        _last_move = now;
+    }
+}
+void PlayScene::render()
+{
+    draw_game(&_game);
+}

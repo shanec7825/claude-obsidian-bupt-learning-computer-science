@@ -2,7 +2,50 @@
   "version": 1,
   "created": "2026-04-23",
   "description": "Ingest delta tracker and address map for the claude-obsidian vault. Do not hand-edit; wiki-ingest maintains this.",
-  "sources": {},
+  "sources": {
+    ".raw/claude-obsidian-ecosystem-research.md": {
+      "hash": "9d4b41948eef44dfde851fb765ad7f208cde0c8318fc3a8c0e7cbcafaa9ce62d",
+      "ingested_at": "2026-06-22",
+      "pages_created": ["wiki/sources/claude-obsidian-ecosystem-research.md", "wiki/entities/Ar9av-obsidian-wiki.md", "wiki/entities/Nexus-claudesidian-mcp.md", "wiki/entities/ballred-obsidian-claude-pkm.md", "wiki/entities/rvk7895-llm-knowledge-bases.md", "wiki/entities/kepano-obsidian-skills.md", "wiki/entities/Claudian-YishenTu.md"],
+      "pages_updated": ["wiki/index.md"]
+    },
+    ".raw/ai": {
+      "hash": "c083b9b7d52792e3914b67da5d6c75f2503b3a2fa1d3ef2df0ee7086573b6176",
+      "ingested_at": "2026-06-22",
+      "pages_created": ["wiki/sources/snake-game-easyx.md", "wiki/concepts/BFS Pathfinding for Game AI.md", "wiki/concepts/EasyX Graphics Library.md"],
+      "pages_updated": ["wiki/index.md", "wiki/log.md", "wiki/hot.md"]
+    },
+    ".raw/game": {
+      "hash": "4704acf1024bf513eb3a7345f4b762126de611131e087298e131fd5cc1f65620",
+      "ingested_at": "2026-06-22",
+      "pages_created": [],
+      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+    },
+    ".raw/input": {
+      "hash": "b1bbcb24e85d5b9b487f0de61400d8223cf0e0fa0e7460a9f4e58dd907ad109f",
+      "ingested_at": "2026-06-22",
+      "pages_created": [],
+      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+    },
+    ".raw/main": {
+      "hash": "c59fdee82ad447503830afff50fd4c37768312fb84e4d84db9d6e0f15726db66",
+      "ingested_at": "2026-06-22",
+      "pages_created": [],
+      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+    },
+    ".raw/render": {
+      "hash": "74d0f3237318451bc6135df5d419a1242da3e1121ff6247669c57f835012f7b7",
+      "ingested_at": "2026-06-22",
+      "pages_created": [],
+      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+    },
+    ".raw/scene": {
+      "hash": "2858044007702053b062fdede749fbf4a9e7bbff4bc1fbfac20e95d77996bf41",
+      "ingested_at": "2026-06-22",
+      "pages_created": [],
+      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+    }
+  },
   "address_map": {
     "wiki/concepts/DragonScale Memory.md": "c-000001"
   }

@@ -1,0 +1,436 @@
+#include "render.h"
+#include <stdio.h>
+#include <tchar.h>
+
+static int panel_left(const GameState *game)
+{
+    return BOARD_LEFT + game->map_size * CELL_SIZE + 20;
+}
+
+static COLORREF cell_color(char cell)
+{
+    switch (cell)
+    {
+    case '#':
+        return RGB(45, 52, 63);
+    case 'O':
+        return RGB(103, 112, 124);
+    case 'H':
+        return RGB(24, 124, 88);
+    case 'B':
+        return RGB(73, 180, 130);
+    case 'A':
+        return RGB(42, 108, 218);
+    case 'C':
+        return RGB(97, 157, 237);
+    case 'F':
+        return RGB(218, 72, 66);
+    default:
+        return RGB(238, 242, 246);
+    }
+}
+
+static void draw_cell(int row, int col, char cell)
+{
+    int left = BOARD_LEFT + col * CELL_SIZE;
+    int top = BOARD_TOP + row * CELL_SIZE;
+    int right = left + CELL_SIZE - 1;
+    int bottom = top + CELL_SIZE - 1;
+    setfillcolor(cell_color(cell));
+    setlinecolor(RGB(215, 221, 228));
+    if (cell == 'F')
+    {
+        solidrectangle(left, top, right, bottom);
+        setfillcolor(RGB(232, 88, 80));
+        solidellipse(left + 5, top + 5, right - 5, bottom - 5);
+    }
+    else
+    {
+        solidrectangle(left, top, right, bottom);
+    }
+}
+
+void draw_board(const GameState *game)
+{
+    int ms = game->map_size;
+    for (int r = 0; r < ms; r++)
+        for (int c = 0; c < ms; c++)
+            draw_cell(r, c, game->map[r][c]);
+    setlinecolor(RGB(54, 63, 74));
+    rectangle(BOARD_LEFT, BOARD_TOP,
+              BOARD_LEFT + ms * CELL_SIZE,
+              BOARD_TOP + ms * CELL_SIZE);
+}
+
+static void draw_text_line(int x, int y, const TCHAR *label, const TCHAR *value)
+{
+    TCHAR line[128];
+    _stprintf(line, _T("%s %s"), label, value);
+    outtextxy(x, y, line);
+}
+
+static const TCHAR *death_reason_text(DeathReason r)
+{
+    switch (r)
+    {
+    case DEATH_WALL:
+        return _T("Reason: Hit Wall");
+    case DEATH_OBSTACLE:
+        return _T("Reason: Hit Obstacle");
+    case DEATH_BODY:
+        return _T("Reason: Hit Self Body");
+    case DEATH_ENEMY_BODY:
+        return _T("Reason: Hit Enemy Body");
+    case DEATH_HEAD_ON:
+        return _T("Reason: Head-on Collision");
+    case DEATH_FULL_MAP:
+        return _T("Reason: No Empty Cell");
+    default:
+        return _T("Reason: Unknown");
+    }
+}
+
+void draw_panel(const GameState *game)
+{
+    TCHAR val[64];
+    int px = panel_left(game);
+
+    setbkmode(TRANSPARENT);
+
+    if (game->mode == MODE_PVP)
+    {
+        // --- PvP Mode Panel ---
+        settextcolor(RGB(35, 42, 52));
+        settextstyle(28, 0, _T("Consolas"));
+        outtextxy(px, 48, _T("PVP MODE"));
+
+        // Player 1 section (Green)
+        settextstyle(18, 0, _T("Consolas"));
+        settextcolor(RGB(24, 124, 88));
+        outtextxy(px, 90, _T("-- Player 1 (Green) --"));
+
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->score);
+        draw_text_line(px, 120, _T("Score:"), val);
+        _stprintf(val, _T("%d"), game->length);
+        draw_text_line(px, 150, _T("Length:"), val);
+        _stprintf(val, _T("%d"), game->food_eaten);
+        draw_text_line(px, 180, _T("Food:"), val);
+
+        // Player 2 section (Blue)
+        settextcolor(RGB(42, 108, 218));
+        outtextxy(px, 230, _T("-- Player 2 (Blue) --"));
+
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->ai_score);
+        draw_text_line(px, 260, _T("Score:"), val);
+        _stprintf(val, _T("%d"), game->ai_length);
+        draw_text_line(px, 290, _T("Length:"), val);
+        _stprintf(val, _T("%d"), game->ai_food_eaten);
+        draw_text_line(px, 320, _T("Food:"), val);
+
+        if (game->ai_is_alive)
+        {
+            settextcolor(RGB(24, 124, 88));
+            outtextxy(px, 350, _T("P2 Status: Alive"));
+        }
+        else
+        {
+            settextcolor(RGB(190, 54, 48));
+            outtextxy(px, 350, _T("P2 Status: Dead"));
+        }
+
+        // Common stats
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->move_count);
+        draw_text_line(px, 390, _T("Moves:"), val);
+        _stprintf(val, _T("%d"), game->grow_step);
+        draw_text_line(px, 420, _T("Grow N:"), val);
+
+        // Status
+        if (!game->started)
+        {
+            settextcolor(RGB(43, 92, 173));
+            outtextxy(px, 460, _T("Status: Ready"));
+        }
+        else if (game->game_over)
+        {
+            settextcolor(RGB(190, 54, 48));
+            if (game->ai_is_alive)
+                outtextxy(px, 460, _T("Status: P2 Wins!"));
+            else
+                outtextxy(px, 460, _T("Status: P1 Wins!"));
+            outtextxy(px, 490, death_reason_text(
+                game->ai_is_alive ? game->death_reason : game->ai_death_reason));
+        }
+        else if (game->paused)
+        {
+            settextcolor(RGB(179, 123, 38));
+            outtextxy(px, 460, _T("Status: Paused"));
+        }
+        else
+        {
+            settextcolor(RGB(24, 124, 88));
+            outtextxy(px, 460, _T("Status: Running"));
+        }
+
+        // Controls
+        settextcolor(RGB(78, 88, 101));
+        outtextxy(px, 540, _T("P1: W A S D  |  P2: Arrows"));
+        outtextxy(px, 570, _T("Space: Pause  R: Restart"));
+        outtextxy(px, 600, _T("Hold Shift/F: Speed Up"));
+        outtextxy(px, 630, _T("Esc: Menu"));
+
+        outtextxy(px, 690, _T("Mode: PvP (1P vs 2P)"));
+    }
+    else if (game->mode == MODE_BATTLE)
+    {
+        // --- Battle Mode Panel ---
+        settextcolor(RGB(35, 42, 52));
+        settextstyle(28, 0, _T("Consolas"));
+        outtextxy(px, 48, _T("BATTLE MODE"));
+
+        // Player section
+        settextstyle(18, 0, _T("Consolas"));
+        settextcolor(RGB(24, 124, 88));
+        outtextxy(px, 90, _T("-- Player (H) --"));
+
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->score);
+        draw_text_line(px, 120, _T("Score:"), val);
+        _stprintf(val, _T("%d"), game->length);
+        draw_text_line(px, 150, _T("Length:"), val);
+        _stprintf(val, _T("%d"), game->food_eaten);
+        draw_text_line(px, 180, _T("Food:"), val);
+
+        // AI section
+        settextcolor(RGB(42, 108, 218));
+        outtextxy(px, 230, _T("-- AI (A) --"));
+
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->ai_score);
+        draw_text_line(px, 260, _T("Score:"), val);
+        _stprintf(val, _T("%d"), game->ai_length);
+        draw_text_line(px, 290, _T("Length:"), val);
+        _stprintf(val, _T("%d"), game->ai_food_eaten);
+        draw_text_line(px, 320, _T("Food:"), val);
+
+        if (game->ai_is_alive)
+        {
+            settextcolor(RGB(24, 124, 88));
+            outtextxy(px, 350, _T("AI Status: Alive"));
+        }
+        else
+        {
+            settextcolor(RGB(190, 54, 48));
+            outtextxy(px, 350, _T("AI Status: Dead"));
+        }
+
+        // Common stats
+        settextcolor(RGB(35, 42, 52));
+        _stprintf(val, _T("%d"), game->move_count);
+        draw_text_line(px, 390, _T("Moves:"), val);
+        _stprintf(val, _T("%d"), game->grow_step);
+        draw_text_line(px, 420, _T("Grow N:"), val);
+
+        // Status
+        if (!game->started)
+        {
+            settextcolor(RGB(43, 92, 173));
+            outtextxy(px, 460, _T("Status: Ready"));
+        }
+        else if (game->game_over)
+        {
+            settextcolor(RGB(190, 54, 48));
+            outtextxy(px, 460, _T("Status: You Lose"));
+            outtextxy(px, 490, death_reason_text(game->death_reason));
+        }
+        else if (game->paused)
+        {
+            settextcolor(RGB(179, 123, 38));
+            outtextxy(px, 460, _T("Status: Paused"));
+        }
+        else
+        {
+            settextcolor(RGB(24, 124, 88));
+            outtextxy(px, 460, _T("Status: Running"));
+        }
+
+        // Controls
+        settextcolor(RGB(78, 88, 101));
+        outtextxy(px, 540, _T("Move: W A S D / Arrows"));
+        outtextxy(px, 570, _T("Space: Pause  R: Restart"));
+        outtextxy(px, 600, _T("Hold Shift/F: Speed Up"));
+        outtextxy(px, 630, _T("Esc: Menu"));
+        // Difficulty
+        const TCHAR *diff_text = _T("Normal");
+        if (game->ai_difficulty == AI_EASY)
+            diff_text = _T("Easy");
+        else if (game->ai_difficulty == AI_HARD)
+            diff_text = _T("Hard");
+        TCHAR diff_line[64];
+        _stprintf(diff_line, _T("AI Difficulty: %s"), diff_text);
+        outtextxy(px, 660, diff_line);
+
+        outtextxy(px, 690, _T("Mode: Battle (H vs AI)"));
+    }
+    else
+    {
+        // --- Classic Panel ---
+        settextcolor(RGB(35, 42, 52));
+        settextstyle(28, 0, _T("Consolas"));
+        outtextxy(px, 48, _T("Snake"));
+
+        settextstyle(18, 0, _T("Consolas"));
+        _stprintf(val, _T("%d"), game->score);
+        draw_text_line(px, 102, _T("Score:"), val);
+        _stprintf(val, _T("%d"), game->length);
+        draw_text_line(px, 132, _T("Length:"), val);
+        _stprintf(val, _T("%d"), game->move_count);
+        draw_text_line(px, 162, _T("Moves:"), val);
+        _stprintf(val, _T("%d"), game->grow_step);
+        draw_text_line(px, 192, _T("Grow N:"), val);
+
+        if (!game->started)
+        {
+            settextcolor(RGB(43, 92, 173));
+            outtextxy(px, 242, _T("Status: Ready"));
+        }
+        else if (game->game_over)
+        {
+            settextcolor(RGB(190, 54, 48));
+            outtextxy(px, 242, _T("Status: Game Over"));
+            outtextxy(px, 272, death_reason_text(game->death_reason));
+        }
+        else if (game->paused)
+        {
+            settextcolor(RGB(179, 123, 38));
+            outtextxy(px, 242, _T("Status: Paused"));
+        }
+        else
+        {
+            settextcolor(RGB(24, 124, 88));
+            outtextxy(px, 242, _T("Status: Running"));
+        }
+
+        settextcolor(RGB(78, 88, 101));
+        outtextxy(px, 315, _T("Move: W A S D / Arrows"));
+        outtextxy(px, 345, _T("Space: Pause  R: Restart"));
+        outtextxy(px, 375, _T("Hold Shift/F: Speed Up"));
+        outtextxy(px, 405, _T("Esc: Menu"));
+        outtextxy(px, 435, _T("Mode: Classic"));
+    }
+}
+
+void draw_game_over(const GameState *game)
+{
+    setbkmode(TRANSPARENT);
+    settextcolor(RGB(190, 54, 48));
+    settextstyle(32, 0, _T("Consolas"));
+
+    int cx = BOARD_LEFT + game->map_size * CELL_SIZE / 2;
+    int cy = BOARD_TOP + game->map_size * CELL_SIZE / 2;
+
+    if (game->mode == MODE_PVP)
+    {
+        if (game->ai_is_alive)
+            outtextxy(cx - 80, cy - 60, _T("P1 LOSES"));
+        else
+            outtextxy(cx - 80, cy - 60, _T("P2 LOSES"));
+    }
+    else if (game->mode == MODE_BATTLE)
+        outtextxy(cx - 80, cy - 60, _T("YOU LOSE"));
+    else
+        outtextxy(cx - 100, cy - 60, _T("GAME OVER"));
+
+    settextstyle(18, 0, _T("Consolas"));
+    TCHAR buf[64];
+    _stprintf(buf, _T("Score: %d"), game->score);
+    outtextxy(cx - 50, cy - 10, buf);
+    outtextxy(cx - 100, cy + 20, _T("Press R to Retry"));
+    outtextxy(cx - 100, cy + 50, _T("Press Esc for Menu"));
+}
+
+void draw_menu()
+{
+    cleardevice();
+    setbkmode(TRANSPARENT);
+
+    // Center all text in the menu window
+    int cx = MENU_WINDOW_WIDTH / 2;
+
+    settextcolor(RGB(35, 42, 52));
+    settextstyle(36, 0, _T("Consolas"));
+    int tw = textwidth(_T("SNAKE GAME"));
+    outtextxy(cx - tw / 2, 80, _T("SNAKE GAME"));
+
+    settextstyle(22, 0, _T("Consolas"));
+    settextcolor(RGB(78, 88, 101));
+
+    const TCHAR *items[] = {
+        _T("1 - Classic Mode"),
+        _T("2 - PvP Mode (1P vs 2P)"),
+        _T("3 - Battle Mode (vs AI)")
+    };
+    for (int i = 0; i < 3; i++)
+    {
+        tw = textwidth(items[i]);
+        outtextxy(cx - tw / 2, 180 + i * 42, items[i]);
+    }
+
+    settextstyle(16, 0, _T("Consolas"));
+    settextcolor(RGB(110, 118, 130));
+    const TCHAR *desc1 = _T("PvP: P1=WASD, P2=Arrows, 35x35 map");
+    const TCHAR *desc2 = _T("Battle: 35x35 map, head-hit = death+grow");
+    tw = textwidth(desc1);
+    outtextxy(cx - tw / 2, 330, desc1);
+    tw = textwidth(desc2);
+    outtextxy(cx - tw / 2, 358, desc2);
+
+    settextstyle(18, 0, _T("Consolas"));
+    settextcolor(RGB(78, 88, 101));
+    const TCHAR *esc = _T("Esc - Quit");
+    tw = textwidth(esc);
+    outtextxy(cx - tw / 2, 450, esc);
+}
+
+void draw_difficulty_menu()
+{
+    cleardevice();
+    setbkmode(TRANSPARENT);
+
+    int cx = MENU_WINDOW_WIDTH / 2;
+
+    settextcolor(RGB(35, 42, 52));
+    settextstyle(36, 0, _T("Consolas"));
+    int tw = textwidth(_T("BATTLE - Difficulty"));
+    outtextxy(cx - tw / 2, 80, _T("BATTLE - Difficulty"));
+
+    settextstyle(24, 0, _T("Consolas"));
+    settextcolor(RGB(24, 124, 88));
+    tw = textwidth(_T("1 - Easy"));
+    outtextxy(cx - tw / 2, 190, _T("1 - Easy"));
+
+    settextcolor(RGB(218, 128, 42));
+    tw = textwidth(_T("2 - Normal"));
+    outtextxy(cx - tw / 2, 260, _T("2 - Normal"));
+
+    settextcolor(RGB(190, 54, 48));
+    tw = textwidth(_T("3 - Hard"));
+    outtextxy(cx - tw / 2, 330, _T("3 - Hard"));
+
+    settextstyle(18, 0, _T("Consolas"));
+    settextcolor(RGB(78, 88, 101));
+    tw = textwidth(_T("Esc - Back"));
+    outtextxy(cx - tw / 2, 440, _T("Esc - Back"));
+}
+
+void draw_game(const GameState *game)
+{
+    setbkcolor(RGB(247, 249, 252));
+    cleardevice();
+    draw_board(game);
+    draw_panel(game);
+    if (game->game_over)
+        draw_game_over(game);
+}

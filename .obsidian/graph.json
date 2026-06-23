@@ -1,6 +1,6 @@
 {
   "collapse-filter": false,
-  "search": "path:wiki",
+  "search": "easyx",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": true,
@@ -67,6 +67,6 @@
   "repelStrength": 20,
   "linkStrength": 1,
   "linkDistance": 80,
-  "scale": 0.18837842565604407,
+  "scale": 2.005534670386935,
   "close": true
 }

@@ -1,0 +1,32 @@
+#include "input.h"
+#include <imm.h>
+#include <graphics.h>
+#include <string.h>
+#pragma comment(lib, "imm32.lib")
+
+static bool was_down[256] = {false};
+
+bool key_pressed(int vk)
+{
+    bool now_down = (GetAsyncKeyState(vk) & 0x8000) != 0;
+    bool pressed = now_down && !was_down[vk];
+    was_down[vk] = now_down;
+    return pressed;
+}
+
+bool key_held(int vk)
+{
+    return (GetAsyncKeyState(vk) & 0x8000) != 0;
+}
+
+void disable_ime()
+{
+    HWND hwnd = GetHWnd();
+    if (hwnd)
+        ImmAssociateContext(hwnd, NULL);
+}
+
+void reset_key_state()
+{
+    memset(was_down, 0, sizeof(was_down));
+}

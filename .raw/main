@@ -1,0 +1,52 @@
+#include <graphics.h>
+#include "input.h"
+#include "scene.h"
+
+int main()
+{
+    initgraph(MENU_WINDOW_WIDTH, MENU_WINDOW_HEIGHT);
+    disable_ime();
+    BeginBatchDraw();
+
+    Scene *current = new MenuScene();
+
+    while (true)
+    {
+        current->update();
+        current->render();
+        FlushBatchDraw();
+        Sleep(16);
+
+        SceneType next = current->next_scene();
+        if (next == SCENE_EXIT)
+            break;
+        if (next != SCENE_MENU && dynamic_cast<MenuScene *>(current) != nullptr)
+        {
+            // 从菜单进入游戏
+            MenuScene *menu = static_cast<MenuScene *>(current);
+            GameMode mode = menu->selected_mode;
+            delete current;
+            if (mode == MODE_CLASSIC)
+                resize_graph_window(CLASSIC_WINDOW_WIDTH, CLASSIC_WINDOW_HEIGHT);
+            else
+                resize_graph_window(BATTLE_WINDOW_WIDTH, BATTLE_WINDOW_HEIGHT);
+            current = new PlayScene(mode, menu->selected_difficulty());
+        }
+        else if (next == SCENE_MENU && dynamic_cast<PlayScene *>(current) != nullptr)
+        {
+            delete current;
+            resize_graph_window(MENU_WINDOW_WIDTH, MENU_WINDOW_HEIGHT);
+            current = new MenuScene();
+        }
+        else if (next == SCENE_PLAY && dynamic_cast<PlayScene *>(current) != nullptr)
+        {
+            // 重玩（PlayScene内部处理了R键，这里不用切换场景）
+            // 但若PlayScene返回SCENE_PLAY，保持自身
+        }
+    }
+
+    delete current;
+    EndBatchDraw();
+    closegraph();
+    return 0;
+}

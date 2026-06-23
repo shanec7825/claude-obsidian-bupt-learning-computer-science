@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "477f1cf965ca606e",
+        "id": "f01a045de81adb53",
         "type": "tabs",
         "children": [
           {
-            "id": "a31de1b302cdc5cf",
+            "id": "e5dee6d28bdaca70",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -16,8 +16,101 @@
               "icon": "lucide-git-fork",
               "title": "Graph view"
             }
+          },
+          {
+            "id": "5c2ab2bb0828d69f",
+            "type": "leaf",
+            "state": {
+              "type": "thino_view",
+              "state": {},
+              "icon": "Memos",
+              "title": "Thino"
+            }
+          },
+          {
+            "id": "a987029a2e32af70",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
+          },
+          {
+            "id": "3af641c15e2de1ca",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/concepts/EasyX Graphics Library.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "EasyX Graphics Library"
+            }
+          },
+          {
+            "id": "bdbf38ca8314d0cd",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Drawing 2026-06-22 17.07.42.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2026-06-22 17.07.42.excalidraw"
+            }
+          },
+          {
+            "id": "256fc6f48830d16d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/sessions/snake-game-call-graph.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "snake-game-call-graph"
+            }
+          },
+          {
+            "id": "be084a940d55eb58",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/concepts/EasyX Graphics Library.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "EasyX Graphics Library"
+            }
+          },
+          {
+            "id": "731d05266c55f9eb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/concepts/snake-curriculum/ch1-cpp-basics.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "ch1-cpp-basics"
+            }
           }
-        ]
+        ],
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -164,8 +257,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "calendar"
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           },
           {
@@ -177,13 +270,23 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "6d91f50e917912e9",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
           }
         ],
         "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 466.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,6 +304,30 @@
       "realclaudian:Open Claudian": false
     }
   },
-  "active": "a31de1b302cdc5cf",
-  "lastOpenFiles": []
+  "active": "7da77da3f96f85a0",
+  "lastOpenFiles": [
+    "wiki/concepts/Snake Game Curriculum.md",
+    "wiki/concepts/snake-curriculum/ch0-environment.md",
+    "wiki/concepts/snake-curriculum/ch1-cpp-basics.md",
+    "Excalidraw/Drawing 2026-06-22 17.21.14.excalidraw.md",
+    "wiki/concepts/snake-curriculum/ch7-advanced.md",
+    "wiki/concepts/snake-curriculum/ch6-multiplayer.md",
+    "wiki/concepts/snake-curriculum/ch5-ai-pathfinding.md",
+    "wiki/concepts/snake-curriculum/ch4-game-logic.md",
+    "wiki/concepts/snake-curriculum/ch3-movement.md",
+    "wiki/concepts/snake-curriculum/ch2-rendering.md",
+    "wiki/concepts/snake-curriculum",
+    "wiki/concepts/EasyX Graphics Library.md",
+    "wiki/sessions/snake-game-call-graph.md",
+    "Excalidraw/Drawing 2026-06-22 17.07.42.excalidraw.md",
+    "Excalidraw/Drawing 2026-06-22 17.51.21.excalidraw.md",
+    "wiki/sessions",
+    "wiki/sources/snake-game-easyx.md",
+    "Excalidraw",
+    "Untitled.md",
+    "wiki/concepts/BFS Pathfinding for Game AI.md",
+    "2026-06-22.md",
+    "calendar/2026-06-22.md",
+    "calendar"
+  ]
 }

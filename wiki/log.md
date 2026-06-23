@@ -25,6 +25,30 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-06-22] save | Snake Game Curriculum — Complete Course (8 chapters)
+- Type: concept (expanded to 9-page course suite)
+- Locations: [[Snake Game Curriculum]] (main index) + 8 chapter lectures in wiki/concepts/snake-curriculum/
+- 5 header files: .raw/snake-headers/{scene,game,ai,input,render}.h
+- From: conversation — user requested a complete self-study course upgraded from outline to full lectures
+- Chapters: ch0 环境配置 (417行), ch1 C++基础 (1682行), ch2 绘图 (800+行), ch3 移动 (1067行), ch4 游戏逻辑 (1485行), ch5 BFS AI (1283行), ch6 多人对战 (1517行), ch7 进阶方向 (589行)
+- Total: ~8000+ lines of lecture content across 8 chapters
+
+## [2026-06-22] save | Snake Game Curriculum — Zero to C++ Game Dev
+- Type: concept
+- Location: [[Snake Game Curriculum]] in wiki/concepts/
+- From: conversation designing a complete 8-chapter course around the EasyX Snake game
+
+## [2026-06-22] save | Snake Game Call Graph
+- Type: synthesis
+- Location: [[snake-game-call-graph]] in wiki/sessions/
+- From: conversation about how the EasyX Snake game functions connect and call each other
+
+## [2026-06-22] ingest | C++ Snake Game (EasyX)
+- Source: `.raw/ai`, `.raw/game`, `.raw/input`, `.raw/main`, `.raw/render`, `.raw/scene`
+- Summary: [[snake-game-easyx]]
+- Pages created: [[snake-game-easyx]], [[BFS Pathfinding for Game AI]], [[EasyX Graphics Library]]
+- Key insight: Complete Windows Snake game with 3 modes (Classic/PvP/Battle) and BFS-based AI pathfinding across 3 difficulty tiers; demonstrates EasyX graphics library used in Chinese C++ education.
+
 ## [2026-04-24] save | v1.6.0 public release notes (Teams, Karpathy-style)
 - Type: release doc + visual assets
 - Locations (new): `docs/releases/v1.6.0.md` (346 lines, 6 sections, Karpathy-style prose), `wiki/meta/dragonscale-mechanism-overview.svg` (4-mechanism diagram with shared .vault-meta/ gate), `wiki/meta/dragonscale-6-test-flow.svg` (validation timeline), `wiki/meta/dragonscale-frontier-graph.svg` (M4 candidate + 3 filed pages)
