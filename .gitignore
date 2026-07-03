@@ -8,6 +8,11 @@
 !.obsidian/plugins/thino/data.json
 
 # Excalidraw main.js is 8MB — downloaded by setup-vault.sh, not tracked in git
+
+# Playground build artifacts
+playground/*/build/
+playground/*/*.exe
+playground/*/*.o
 .obsidian/plugins/obsidian-excalidraw-plugin/main.js
 
 # Large binary assets — add your own images to _attachments/images/

@@ -1,6 +1,6 @@
 ---
 type: concept
-title: "EasyX Graphics Library"
+title: EasyX Graphics Library
 created: 2026-06-22
 updated: 2026-06-22
 tags:
@@ -96,3 +96,6 @@ EasyX is most commonly used in:
 - **Competitive programming visuals** — simple algorithm visualization
 - **Hobbyist 2D games** — Snake, Tetris, Flappy Bird clones
 - **Windows C++ tutorials** — many online tutorials target EasyX
+
+> [!contradiction] Snake game ported away from EasyX
+> The Snake game that originally used EasyX was subsequently **ported to raylib** (see [[snake-game-raylib]]). The raylib version replaces all EasyX API calls with cross-platform equivalents, adds procedural audio, and introduces proper C++ headers. The EasyX original ([[snake-game-easyx]]) remains as documentation of the Windows-only approach.

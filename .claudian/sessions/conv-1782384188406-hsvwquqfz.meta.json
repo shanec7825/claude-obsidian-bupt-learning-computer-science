@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782384188406-hsvwquqfz",
+  "providerId": "claude",
+  "title": "Add PVP tail-drop food/obstacle mechanic",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782384188406,
+  "updatedAt": 1782390081362,
+  "lastResponseAt": 1782384396858,
+  "sessionId": "8ee791c1-d96f-4ca9-89e2-76baa1df5592",
+  "providerState": {
+    "providerSessionId": "8ee791c1-d96f-4ca9-89e2-76baa1df5592"
+  },
+  "currentNote": "wiki/concepts/snake-curriculum/ch6-multiplayer.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 8208,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 91008,
+    "contextWindow": 1000000,
+    "contextTokens": 99216,
+    "percentage": 10,
+    "contextWindowIsAuthoritative": true
+  }
+}

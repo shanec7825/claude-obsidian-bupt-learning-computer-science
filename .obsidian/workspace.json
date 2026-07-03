@@ -4,113 +4,66 @@
     "type": "split",
     "children": [
       {
-        "id": "f01a045de81adb53",
+        "id": "e71589ae3a115443",
         "type": "tabs",
         "children": [
           {
-            "id": "e5dee6d28bdaca70",
+            "id": "f05982fa4bedd281",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "split-diff-view",
+              "state": {
+                "aFile": ".gitignore",
+                "bFile": ".gitignore",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: .gitignore  (Working Tree)"
             }
           },
           {
-            "id": "5c2ab2bb0828d69f",
-            "type": "leaf",
-            "state": {
-              "type": "thino_view",
-              "state": {},
-              "icon": "Memos",
-              "title": "Thino"
-            }
-          },
-          {
-            "id": "a987029a2e32af70",
+            "id": "d110edf7fe187a6b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Untitled.md",
+                "file": "wiki/concepts/Agent-Generated Learning Path.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "Agent-Generated Learning Path"
             }
           },
           {
-            "id": "3af641c15e2de1ca",
+            "id": "5b81f3d7a77c4f22",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "wiki/concepts/EasyX Graphics Library.md",
+                "file": "wiki/concepts/Cpp-Tetris-Architecture-Learning.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "EasyX Graphics Library"
+              "title": "Cpp-Tetris-Architecture-Learning"
             }
           },
           {
-            "id": "bdbf38ca8314d0cd",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/Drawing 2026-06-22 17.07.42.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "Drawing 2026-06-22 17.07.42.excalidraw"
-            }
-          },
-          {
-            "id": "256fc6f48830d16d",
+            "id": "952ab8fa59864556",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "wiki/sessions/snake-game-call-graph.md",
+                "file": "wiki/concepts/GitHub Repo Learning Evaluation Checklist.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "snake-game-call-graph"
-            }
-          },
-          {
-            "id": "be084a940d55eb58",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "wiki/concepts/EasyX Graphics Library.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "EasyX Graphics Library"
-            }
-          },
-          {
-            "id": "731d05266c55f9eb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "wiki/concepts/snake-curriculum/ch1-cpp-basics.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "ch1-cpp-basics"
+              "title": "GitHub Repo Learning Evaluation Checklist"
             }
           }
-        ],
-        "currentTab": 7
+        ]
       }
     ],
     "direction": "vertical"
@@ -243,12 +196,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "wiki/concepts/snake-curriculum/ch7-advanced.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of ch7-advanced"
             }
           },
           {
@@ -286,7 +240,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 466.5
+    "width": 613.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -301,33 +255,51 @@
       "obsidian-memos:Thino Super": false,
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-git:Open Git source control": false,
-      "realclaudian:Open Claudian": false
+      "realclaudian:Open Claudian": false,
+      "nutstore-sync:Start sync": false,
+      "nutstore-sync:Stop sync": false,
+      "nutstore-sync:Open chatbox": false
     }
   },
-  "active": "7da77da3f96f85a0",
+  "active": "f05982fa4bedd281",
   "lastOpenFiles": [
-    "wiki/concepts/Snake Game Curriculum.md",
-    "wiki/concepts/snake-curriculum/ch0-environment.md",
-    "wiki/concepts/snake-curriculum/ch1-cpp-basics.md",
-    "Excalidraw/Drawing 2026-06-22 17.21.14.excalidraw.md",
-    "wiki/concepts/snake-curriculum/ch7-advanced.md",
-    "wiki/concepts/snake-curriculum/ch6-multiplayer.md",
-    "wiki/concepts/snake-curriculum/ch5-ai-pathfinding.md",
-    "wiki/concepts/snake-curriculum/ch4-game-logic.md",
-    "wiki/concepts/snake-curriculum/ch3-movement.md",
-    "wiki/concepts/snake-curriculum/ch2-rendering.md",
-    "wiki/concepts/snake-curriculum",
-    "wiki/concepts/EasyX Graphics Library.md",
-    "wiki/sessions/snake-game-call-graph.md",
-    "Excalidraw/Drawing 2026-06-22 17.07.42.excalidraw.md",
-    "Excalidraw/Drawing 2026-06-22 17.51.21.excalidraw.md",
-    "wiki/sessions",
-    "wiki/sources/snake-game-easyx.md",
-    "Excalidraw",
-    "Untitled.md",
+    "wiki/concepts/Cpp-Tetris-Architecture-Learning.md",
+    "wiki/sessions/think-session-2026-07-03.md",
+    "wiki/canvases/snake-learning-map.canvas",
+    "wiki/canvases/cs-knowledge-graph.canvas",
+    "playground/tetris/LEARN.md",
+    "playground/snake/LEARN.md",
+    "playground/snake/Makefile",
+    "playground/README.md",
+    "playground/tetris/Makefile",
+    "playground/tetris/src/position.h",
+    "playground/tetris/src/position.cpp",
+    "playground/tetris/src/main.cpp",
+    "playground/tetris/src/grid.h",
+    "playground/tetris/src/grid.cpp",
+    "playground/tetris/src/game.h",
+    "playground/tetris/src/game.cpp",
+    "playground/tetris/src/colors.h",
+    "wiki/concepts/Developer Knowledge Base Pattern.md",
+    "wiki/questions/Research-GitHub-开源项目学习法可行性.md",
+    "wiki/concepts/Code Reading as Learning Strategy.md",
+    "wiki/concepts/渐进摘要-Progressive-Summarization.md",
+    "wiki/concepts/Agent-Generated Learning Path.md",
+    "wiki/concepts/GitHub Repo Learning Evaluation Checklist.md",
+    "wiki/sources/cpp-tetris-raylib.md",
+    "wiki/questions/Research-为编程新手推荐-GitHub-学习仓库.md",
+    "wiki/index.md",
+    "wiki/sources/github-learning-repo-research.md",
     "wiki/concepts/BFS Pathfinding for Game AI.md",
-    "2026-06-22.md",
-    "calendar/2026-06-22.md",
-    "calendar"
+    "wiki/sources/github-codebase-learning-research.md",
+    "wiki/sources/learning-cognition-batch.md",
+    "wiki/concepts/认知卸载-Cognitive-Offloading.md",
+    "wiki/concepts/知识库的正确打开方式-KB-Correct-Usage-Pattern.md",
+    "wiki/concepts/合意困难-Desirable-Difficulties.md",
+    "wiki/concepts/snake-curriculum/snake-game-final-design.md",
+    "wiki/concepts/snake-curriculum/snake-game-presentation.md",
+    "wiki/references/transport-fallback.md",
+    "wiki/concepts/EasyX Graphics Library.md",
+    "wiki/sessions/snake-game-call-graph.md"
   ]
 }

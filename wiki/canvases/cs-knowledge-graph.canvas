@@ -1,0 +1,92 @@
+{
+	"nodes":[
+		{"id":"title","type":"text","text":"# 🖥️ CS Knowledge Map\n### From Transistors to Agent Applications\n*Click any node to open its concept page*","x":0,"y":-520,"width":520,"height":100},
+		{"id":"legend-done","type":"text","text":"🟢 Done  🟡 Active  ⚪ Todo","x":600,"y":-520,"width":280,"height":40},
+
+		{"id":"label-physics","type":"text","text":"## ⚡ Physics Layer","x":-900,"y":-380,"width":200,"height":45,"color":"5"},
+		{"id":"transistor","type":"text","text":"⚪ **Transistor**\nSemiconductor switch.\nNMOS/PMOS → CMOS.","x":-900,"y":-310,"width":220,"height":80},
+		{"id":"logic-gate","type":"text","text":"⚪ **Logic Gate**\nAND/OR/NOT/NAND/NOR/XOR.\nBuilt from transistors.","x":-900,"y":-210,"width":220,"height":80},
+
+		{"id":"label-hardware","type":"text","text":"## 🔧 Hardware Layer","x":-600,"y":-380,"width":200,"height":45,"color":"5"},
+		{"id":"combinational","type":"text","text":"⚪ **Combinational Circuit**\nMux, decoder, ALU.\nOutput = f(input) only.","x":-600,"y":-310,"width":220,"height":80},
+		{"id":"sequential","type":"text","text":"⚪ **Sequential Circuit**\nFlip-flop, register, counter.\nOutput = f(input, state).","x":-600,"y":-210,"width":220,"height":80},
+		{"id":"cpu","type":"text","text":"⚪ **CPU Architecture**\nISA, pipeline, branch-pred,\ncache hierarchy.","x":-600,"y":-110,"width":220,"height":80},
+		{"id":"memory-hierarchy","type":"text","text":"⚪ **Memory Hierarchy**\nRegister → L1/L2/L3 → RAM → SSD.\nLocality: temporal + spatial.","x":-350,"y":-210,"width":240,"height":80},
+
+		{"id":"label-lowlevel","type":"text","text":"## 🧱 Low-Level Layer","x":-50,"y":-380,"width":200,"height":45,"color":"5"},
+		{"id":"assembly","type":"text","text":"⚪ **Assembly**\nx86 / ARM / RISC-V.\nISA as human-readable machine code.","x":-50,"y":-310,"width":220,"height":80},
+		{"id":"c-language","type":"text","text":"🟢 **C Language**\nPointers, memory layout,\nmanual allocation.\n→ Snake/Tetris projects","x":-50,"y":-210,"width":220,"height":90},
+		{"id":"cpp-language","type":"text","text":"🟢 **C++**\nRAII, OOP, templates, STL.\n→ Snake (Scene polym.)\n→ Tetris (Block inherit.)","x":-50,"y":-100,"width":220,"height":100},
+		{"id":"compilers","type":"text","text":"⚪ **Compilers**\nLexing → Parsing → IR →\nOptimization → Codegen.","x":200,"y":-310,"width":220,"height":80},
+
+		{"id":"label-os","type":"text","text":"## 🪟 OS Layer","x":480,"y":-380,"width":200,"height":45,"color":"5"},
+		{"id":"os-fundamentals","type":"text","text":"⚪ **Operating Systems**\nProcess/thread, virtual memory,\nfile system, syscalls.","x":480,"y":-310,"width":240,"height":80},
+		{"id":"concurrency","type":"text","text":"⚪ **Concurrency**\nThread, mutex, semaphore,\natomic, lock-free, coroutine.","x":480,"y":-210,"width":240,"height":80},
+		{"id":"networking","type":"text","text":"⚪ **Computer Networks**\nTCP/IP, HTTP, DNS, TLS.\nOSI 7-layer model.","x":480,"y":-110,"width":240,"height":80},
+
+		{"id":"label-algo","type":"text","text":"## 📐 Algorithms Layer","x":790,"y":-380,"width":200,"height":45,"color":"5"},
+		{"id":"data-structures","type":"text","text":"⚪ **Data Structures**\nArray, list, tree, hash,\ngraph, heap, trie.","x":790,"y":-310,"width":220,"height":80},
+		{"id":"algorithms","type":"text","text":"⚪ **Algorithms**\nSort, search, DP, greedy,\ndivide-conquer, graph.","x":790,"y":-210,"width":220,"height":80},
+		{"id":"complexity","type":"text","text":"⚪ **Complexity Theory**\nBig-O, P vs NP,\nundecidability, reduction.","x":790,"y":-110,"width":220,"height":80},
+
+		{"id":"label-app","type":"text","text":"## 🏗️ Application Layer","x":1060,"y":-380,"width":220,"height":45,"color":"5"},
+		{"id":"backend","type":"text","text":"⚪ **Backend Development**\nREST, database, auth,\ncaching, message queue.","x":1060,"y":-310,"width":240,"height":80},
+		{"id":"security","type":"text","text":"⚪ **Cybersecurity**\nCrypto, websec, reverse-eng,\nCTF, pentesting.","x":1060,"y":-210,"width":240,"height":80},
+		{"id":"ai-ml","type":"text","text":"⚪ **AI / ML**\nNeural nets, transformers,\nRL, agent architectures.","x":1060,"y":-110,"width":240,"height":80},
+		{"id":"agent-apps","type":"text","text":"⚪ **Agent Applications**\nLLM agents, tool-use,\nmulti-agent, RAG, MCP.","x":1060,"y":-10,"width":240,"height":80},
+
+		{"id":"label-projects","type":"text","text":"## 🎮 Your Projects","x":-350,"y":50,"width":200,"height":45,"color":"2"},
+		{"id":"proj-snake","type":"file","file":"playground/snake/LEARN.md","x":-450,"y":120,"width":220,"height":90,"color":"2"},
+		{"id":"proj-tetris","type":"file","file":"playground/tetris/LEARN.md","x":-200,"y":120,"width":220,"height":90,"color":"2"},
+		{"id":"proj-next","type":"text","text":"🟡 **Next Project**\nPick one and apply\nAgent-Generated Path.\n→ HTTP Server?\n→ Allocator?\n→ Shell?","x":50,"y":120,"width":220,"height":110,"color":"3"},
+
+		{"id":"label-crosscuts","type":"text","text":"## 🔀 Cross-Cutting","x":400,"y":50,"width":220,"height":45,"color":"6"},
+		{"id":"git","type":"text","text":"🟢 **Git / Version Control**\ncommit, branch, merge, rebase.\nAlready using in this vault.","x":350,"y":120,"width":240,"height":80},
+		{"id":"testing","type":"text","text":"⚪ **Software Testing**\nUnit, integration, E2E.\nTDD methodology.","x":620,"y":120,"width":220,"height":80},
+		{"id":"design-patterns","type":"text","text":"🟡 **Design Patterns**\nState (Snake Scene),\nInheritance (Tetris Block),\nObserver, Strategy, ...","x":870,"y":120,"width":240,"height":90},
+
+		{"id":"label-meta","type":"text","text":"## 📚 Meta-Learning","x":620,"y":250,"width":220,"height":45,"color":"6"},
+		{"id":"code-reading","type":"file","file":"wiki/concepts/Code Reading as Learning Strategy.md","x":530,"y":320,"width":240,"height":90,"color":"6"},
+		{"id":"kb-pattern","type":"file","file":"wiki/concepts/Developer Knowledge Base Pattern.md","x":800,"y":320,"width":240,"height":90,"color":"6"},
+		{"id":"offloading","type":"file","file":"wiki/concepts/认知卸载-Cognitive-Offloading.md","x":350,"y":320,"width":150,"height":90,"color":"6"},
+		{"id":"difficulty","type":"file","file":"wiki/concepts/合意困难-Desirable-Difficulties.md","x":620,"y":430,"width":180,"height":80,"color":"6"}
+	],
+	"edges":[
+		{"id":"e-trans-gate","fromNode":"transistor","fromSide":"right","toNode":"logic-gate","toSide":"left","label":"physical basis"},
+		{"id":"e-gate-comb","fromNode":"logic-gate","fromSide":"right","toNode":"combinational","toSide":"left","label":"building block"},
+		{"id":"e-gate-seq","fromNode":"logic-gate","fromSide":"right","toNode":"sequential","toSide":"left","label":"building block"},
+		{"id":"e-comb-cpu","fromNode":"combinational","fromSide":"bottom","toNode":"cpu","toSide":"top","label":"ALU = combinational"},
+		{"id":"e-seq-cpu","fromNode":"sequential","fromSide":"bottom","toNode":"cpu","toSide":"left","label":"register = sequential"},
+		{"id":"e-seq-mem","fromNode":"sequential","fromSide":"right","toNode":"memory-hierarchy","toSide":"top"},
+		{"id":"e-cpu-asm","fromNode":"cpu","fromSide":"right","toNode":"assembly","toSide":"left","label":"ISA defined here"},
+		{"id":"e-asm-c","fromNode":"assembly","fromSide":"bottom","toNode":"c-language","toSide":"left","label":"compiles to"},
+		{"id":"e-c-cpp","fromNode":"c-language","fromSide":"bottom","toNode":"cpp-language","toSide":"top","label":"superset"},
+		{"id":"e-cpp-compiler","fromNode":"cpp-language","fromSide":"right","toNode":"compilers","toSide":"left","label":"compiled by"},
+		{"id":"e-c-os","fromNode":"c-language","fromSide":"right","toNode":"os-fundamentals","toSide":"left","label":"implemented in"},
+		{"id":"e-os-concur","fromNode":"os-fundamentals","fromSide":"bottom","toNode":"concurrency","toSide":"top","label":"provides"},
+		{"id":"e-os-net","fromNode":"os-fundamentals","fromSide":"bottom","toNode":"networking","toSide":"top","label":"socket API"},
+
+		{"id":"e-ds-algo","fromNode":"data-structures","fromSide":"bottom","toNode":"algorithms","toSide":"top","label":"operates on"},
+		{"id":"e-algo-complex","fromNode":"algorithms","fromSide":"bottom","toNode":"complexity","toSide":"top","label":"analyzed by"},
+		{"id":"e-cpp-ds","fromNode":"cpp-language","fromSide":"right","toNode":"data-structures","toSide":"left","label":"STL provides"},
+		{"id":"e-algo-ai","fromNode":"algorithms","fromSide":"right","toNode":"ai-ml","toSide":"left","label":"foundation for"},
+
+		{"id":"e-net-backend","fromNode":"networking","fromSide":"right","toNode":"backend","toSide":"left","label":"foundation for"},
+		{"id":"e-net-security","fromNode":"networking","fromSide":"right","toNode":"security","toSide":"top","label":"attack surface"},
+		{"id":"e-os-security","fromNode":"os-fundamentals","fromSide":"right","toNode":"security","toSide":"left","label":"privilege model"},
+		{"id":"e-security-backend","fromNode":"security","fromSide":"bottom","toNode":"backend","toSide":"right","label":"applied to"},
+		{"id":"e-ai-agent","fromNode":"ai-ml","fromSide":"bottom","toNode":"agent-apps","toSide":"top","label":"enables"},
+
+		{"id":"e-cpp-snake","fromNode":"cpp-language","fromSide":"left","toNode":"proj-snake","toSide":"top","label":"used in","color":"2"},
+		{"id":"e-cpp-tetris","fromNode":"cpp-language","fromSide":"bottom","toNode":"proj-tetris","toSide":"top","label":"used in","color":"2"},
+		{"id":"e-snake-tetris","fromNode":"proj-snake","fromSide":"right","toNode":"proj-tetris","toSide":"left","label":"next step","color":"2"},
+		{"id":"e-tetris-next","fromNode":"proj-tetris","fromSide":"right","toNode":"proj-next","toSide":"left","label":"graduate to","color":"3"},
+		{"id":"e-snake-design","fromNode":"proj-snake","fromSide":"bottom","toNode":"design-patterns","toSide":"top","label":"State pattern","color":"2"},
+		{"id":"e-tetris-design","fromNode":"proj-tetris","fromSide":"bottom","toNode":"design-patterns","toSide":"left","label":"Inheritance","color":"2"},
+
+		{"id":"e-code-meta1","fromNode":"proj-snake","fromSide":"bottom","toNode":"code-reading","toSide":"left","label":"method used","color":"6"},
+		{"id":"e-code-meta2","fromNode":"proj-tetris","fromSide":"bottom","toNode":"kb-pattern","toSide":"left","label":"method used","color":"6"},
+
+		{"id":"e-off-diff","fromNode":"offloading","fromSide":"right","toNode":"difficulty","toSide":"left","label":"paired theory"}
+	]
+}

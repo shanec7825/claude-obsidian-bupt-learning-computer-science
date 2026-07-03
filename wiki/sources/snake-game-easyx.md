@@ -131,3 +131,6 @@ Three difficulty levels with increasing sophistication:
 
 - [[BFS Pathfinding for Game AI]] — AI concept page
 - [[EasyX Graphics Library]] — platform concept page
+
+> [!note] raylib port available
+> A raylib-based rewrite with proper headers, audio, and cross-platform support exists at [[snake-game-raylib]]. The reverse-engineered curriculum headers are at [[snake-curriculum-headers]].

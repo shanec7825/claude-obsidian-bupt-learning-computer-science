@@ -1,0 +1,23 @@
+{
+  "id": "conv-1783085829125-t9h9z66xv",
+  "providerId": "claude",
+  "title": "Restructure CS wiki for hands-on learning",
+  "titleGenerationStatus": "success",
+  "createdAt": 1783085829125,
+  "updatedAt": 1783086827411,
+  "lastResponseAt": 1783086827411,
+  "sessionId": "fedec601-8b96-4ba8-b408-9788831498ed",
+  "providerState": {
+    "providerSessionId": "fedec601-8b96-4ba8-b408-9788831498ed"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 348,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 126848,
+    "contextWindow": 1000000,
+    "contextTokens": 127196,
+    "percentage": 13,
+    "contextWindowIsAuthoritative": true
+  }
+}

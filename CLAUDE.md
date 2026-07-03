@@ -14,10 +14,17 @@ This vault demonstrates the LLM Wiki pattern — a persistent, compounding knowl
 
 ```
 .raw/           source documents — immutable, Claude reads but never modifies
-wiki/           Claude-generated knowledge base
+wiki/           Claude-generated knowledge base (the MAP layer)
+playground/     hands-on code projects with IDE-ready LEARN.md guides (the CLASSROOM layer)
 _templates/     Obsidian Templater templates
 _attachments/   images and PDFs referenced by wiki pages
 ```
+
+## Architecture (v2: Three-Layer Model)
+
+- **Layer 1: Map** — `wiki/`. Navigation, dependency graphs (see `wiki/canvases/cs-knowledge-graph.canvas`), cross-project synthesis.
+- **Layer 2: Classroom** — `playground/`. Code + LEARN.md side by side in IDE. Learning happens here.
+- **Layer 3: Synthesis** — `wiki/concepts/`. Only cross-project insights. Single-project details stay in LEARN.md.
 
 ## How to Use
 

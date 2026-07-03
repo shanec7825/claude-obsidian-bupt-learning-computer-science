@@ -1,0 +1,77 @@
+{
+	"nodes":[
+		{"id":"title","type":"text","text":"# 🐍 Snake Game — Learning Map\n### Architecture + Concepts + Exercises\n*Open [[playground/snake/LEARN|LEARN.md]] in IDE for hands-on learning*","x":-300,"y":-520,"width":620,"height":100},
+
+		{"id":"label-flow","type":"text","text":"## 🔄 Execution Flow","x":-850,"y":-380,"width":200,"height":40,"color":"5"},
+		{"id":"main","type":"file","file":"playground/snake/src/main.cpp","x":-900,"y":-320,"width":260,"height":80,"color":"2"},
+		{"id":"scene-loop","type":"text","text":"🟢 **Scene Loop**\n`while (!quit) {\n  scene->update();\n  scene->render();\n  switch scene->next_scene()\n}`","x":-580,"y":-320,"width":260,"height":110,"color":"2"},
+		{"id":"menu-scene","type":"file","file":"playground/snake/src/scene.cpp","x":-260,"y":-400,"width":220,"height":80,"color":"2"},
+		{"id":"play-scene","type":"file","file":"playground/snake/src/scene.cpp","x":-260,"y":-300,"width":220,"height":80,"color":"2"},
+
+		{"id":"label-data","type":"text","text":"## 📦 Data Layer","x":-850,"y":-150,"width":200,"height":40,"color":"6"},
+		{"id":"game-h","type":"file","file":"playground/snake/src/game.h","x":-900,"y":-90,"width":260,"height":120,"color":"6"},
+		{"id":"gamestate-detail","type":"text","text":"**GameState Structure**\n`deque<Point> snake1, snake2`\n`Point food, food2`\n`int scores[2]`\n`GameMode mode`\n`Direction dir1, dir2`\n`bool pending_growth`","x":-580,"y":-90,"width":240,"height":150,"color":"6"},
+
+		{"id":"label-systems","type":"text","text":"## ⚙️ Systems","x":-50,"y":-380,"width":200,"height":40,"color":"5"},
+		{"id":"input-sys","type":"file","file":"playground/snake/src/input.cpp","x":-100,"y":-320,"width":200,"height":80,"color":"2"},
+		{"id":"game-sys","type":"file","file":"playground/snake/src/game.cpp","x":130,"y":-320,"width":200,"height":80,"color":"2"},
+		{"id":"render-sys","type":"file","file":"playground/snake/src/render.cpp","x":360,"y":-320,"width":200,"height":80,"color":"2"},
+		{"id":"ai-sys","type":"file","file":"playground/snake/src/ai.cpp","x":100,"y":-210,"width":200,"height":80,"color":"2"},
+		{"id":"audio-sys","type":"file","file":"playground/snake/src/audio.cpp","x":330,"y":-210,"width":200,"height":80,"color":"2"},
+
+		{"id":"label-concepts","type":"text","text":"## 🧠 Key Concepts","x":600,"y":-380,"width":200,"height":40,"color":"2"},
+		{"id":"edge-trigger","type":"text","text":"🟢 **Edge-Triggered Input**\nKey state tracked PER frame.\n`was_pressed && !is_pressed`\n→ prevents multi-move per frame.\n*vs Tetris: instant response*","x":580,"y":-320,"width":240,"height":120,"color":"2"},
+		{"id":"scene-pattern","type":"text","text":"🟢 **Scene State Machine**\n`Scene` abstract → `MenuScene`,\n`PlayScene`, `PauseScene`.\n`main.cpp` doesn't know which \nscene is active.\n*vs Tetris: no Scene, Game class*","x":580,"y":-180,"width":240,"height":140,"color":"2"},
+		{"id":"bfs-ai","type":"text","text":"🟢 **BFS Pathfinding AI**\n3 tiers:\n• Easy: random move\n• Normal: BFS to food\n• Hard: BFS + tail-reach\n  (checks if tail reachable\n   after eating food)","x":580,"y":-20,"width":240,"height":150,"color":"2"},
+		{"id":"procedural-audio","type":"text","text":"🟢 **Procedural Audio**\nNo .wav files!\nsine(t, f) × env(t)\n4 SFX: eat, die, select, start.\nEach: freq + duration + decay.","x":580,"y":150,"width":240,"height":130,"color":"2"},
+		{"id":"collision-priority","type":"text","text":"🟢 **11-Step Collision Tree**\n1. Wall? → game over\n2. Self? → game over\n3. Other snake? → game over\n4. Food? → eat + grow\n5. Food2? → eat + grow\n6-11. Drop items...","x":350,"y":150,"width":220,"height":150,"color":"2"},
+
+		{"id":"label-exercises","type":"text","text":"## 🔨 Exercises","x":-50,"y":-90,"width":200,"height":40,"color":"3"},
+		{"id":"ex1-speed","type":"text","text":"🟡 **Ex 1: Change Speed**\nFind timer constant.\nDouble the speed.\n→ File: `game.h`","x":-100,"y":-35,"width":200,"height":90,"color":"3"},
+		{"id":"ex2-food","type":"text","text":"🟡 **Ex 2: Golden Food**\nNew food type, 3× points.\n→ Files: `game.h`, `game.cpp`,\n  `render.cpp`","x":-100,"y":70,"width":200,"height":90,"color":"3"},
+		{"id":"ex3-astar","type":"text","text":"🟡 **Ex 3: A* AI**\nReplace BFS with A*.\nManhattan heuristic.\n→ File: `ai.cpp`","x":130,"y":-35,"width":200,"height":90,"color":"3"},
+		{"id":"ex4-pause","type":"text","text":"🟡 **Ex 4: PauseScene**\nAdd new scene type.\n→ Files: `scene.h`, `scene.cpp`,\n  `main.cpp`","x":130,"y":70,"width":200,"height":90,"color":"3"},
+
+		{"id":"label-links","type":"text","text":"## 🔗 Wiki Synthesis","x":-850,"y":230,"width":200,"height":40,"color":"4"},
+		{"id":"wiki-scene","type":"file","file":"wiki/concepts/Scene State Machine Pattern.md","x":-900,"y":290,"width":240,"height":80,"color":"4"},
+		{"id":"wiki-bfs","type":"file","file":"wiki/concepts/BFS Pathfinding for Game AI.md","x":-620,"y":290,"width":240,"height":80,"color":"4"},
+		{"id":"wiki-audio","type":"file","file":"wiki/concepts/Procedural Audio for Games.md","x":-340,"y":290,"width":240,"height":80,"color":"4"},
+		{"id":"wiki-arch-compare","type":"file","file":"wiki/concepts/Cpp-Tetris-Architecture-Learning.md","x":-340,"y":390,"width":240,"height":80,"color":"4"},
+		{"id":"wiki-easyx","type":"file","file":"wiki/concepts/EasyX Graphics Library.md","x":-620,"y":390,"width":240,"height":80,"color":"4"},
+		{"id":"wiki-curriculum","type":"file","file":"wiki/concepts/Snake Game Curriculum.md","x":-900,"y":390,"width":240,"height":80,"color":"4"},
+
+		{"id":"label-compare","type":"text","text":"## 🆚 Compare with Tetris","x":350,"y":320,"width":220,"height":40,"color":"3"},
+		{"id":"compare-detail","type":"text","text":"Same tech stack (raylib + C++).\nDifferent architectures:\n\n| Snake | Tetris |\n|-------|--------|\n| Scene polym. | Block inherit. |\n| Central state | Scattered state |\n| Edge-triggered | Instant response |\n| Procedural audio | Audio files |\n| `deque<Point>` | `int grid[][]` |\n\n→ Why? Different problems.","x":330,"y":380,"width":250,"height":240},"color":"5"},
+
+		{"id":"learn-md","type":"file","file":"playground/snake/LEARN.md","x":-480,"y":500,"width":400,"height":60,"color":"2"}
+	],
+	"edges":[
+		{"id":"e-main-scene","fromNode":"main","fromSide":"right","toNode":"scene-loop","toSide":"left","label":"drives"},
+		{"id":"e-loop-menu","fromNode":"scene-loop","fromSide":"right","toNode":"menu-scene","toSide":"top","label":"creates"},
+		{"id":"e-loop-play","fromNode":"scene-loop","fromSide":"right","toNode":"play-scene","toSide":"top","label":"creates"},
+		{"id":"e-play-gamestate","fromNode":"play-scene","fromSide":"left","toNode":"gamestate-detail","toSide":"top","label":"owns","color":"6"},
+		{"id":"e-gameh-gamestate","fromNode":"game-h","fromSide":"right","toNode":"gamestate-detail","toSide":"left","label":"defines","color":"6"},
+		{"id":"e-gamestate-input","fromNode":"gamestate-detail","fromSide":"right","toNode":"input-sys","toSide":"left","label":"read by"},
+		{"id":"e-gamestate-game","fromNode":"gamestate-detail","fromSide":"right","toNode":"game-sys","toSide":"left","label":"mutated by"},
+		{"id":"e-gamestate-render","fromNode":"gamestate-detail","fromSide":"right","toNode":"render-sys","toSide":"left","label":"read by"},
+		{"id":"e-input-game","fromNode":"input-sys","fromSide":"right","toNode":"game-sys","toSide":"left","label":"input → action"},
+		{"id":"e-game-ai","fromNode":"game-sys","fromSide":"bottom","toNode":"ai-sys","toSide":"top","label":"calls AI"},
+		{"id":"e-game-audio","fromNode":"game-sys","fromSide":"bottom","toNode":"audio-sys","toSide":"top","label":"triggers SFX"},
+		{"id":"e-game-render","fromNode":"game-sys","fromSide":"right","toNode":"render-sys","toSide":"left","label":"state → pixels"},
+
+		{"id":"e-input-concept","fromNode":"input-sys","fromSide":"right","toNode":"edge-trigger","toSide":"left","label":"implements","color":"2"},
+		{"id":"e-scene-concept","fromNode":"scene-loop","fromSide":"right","toNode":"scene-pattern","toSide":"left","label":"implements","color":"2"},
+		{"id":"e-ai-concept","fromNode":"ai-sys","fromSide":"right","toNode":"bfs-ai","toSide":"left","label":"implements","color":"2"},
+		{"id":"e-audio-concept","fromNode":"audio-sys","fromSide":"right","toNode":"procedural-audio","toSide":"left","label":"implements","color":"2"},
+
+		{"id":"e-game-collision","fromNode":"game-sys","fromSide":"bottom","toNode":"collision-priority","toSide":"top","label":"contains","color":"2"},
+
+		{"id":"e-edge-wiki","fromNode":"edge-trigger","fromSide":"left","toNode":"wiki-scene","toSide":"top","label":"deep dive in","color":"4"},
+		{"id":"e-scene-wiki","fromNode":"scene-pattern","fromSide":"left","toNode":"wiki-scene","toSide":"right","label":"deep dive in","color":"4"},
+		{"id":"e-bfs-wiki","fromNode":"bfs-ai","fromSide":"left","toNode":"wiki-bfs","toSide":"right","label":"deep dive in","color":"4"},
+		{"id":"e-audio-wiki","fromNode":"procedural-audio","fromSide":"left","toNode":"wiki-audio","toSide":"right","label":"deep dive in","color":"4"},
+
+		{"id":"e-all-learn","fromNode":"wiki-arch-compare","fromSide":"bottom","toNode":"learn-md","toSide":"right","label":"start here","color":"2"},
+		{"id":"e-all-learn2","fromNode":"wiki-curriculum","fromSide":"bottom","toNode":"learn-md","toSide":"left","label":"","color":"2"}
+	]
+}

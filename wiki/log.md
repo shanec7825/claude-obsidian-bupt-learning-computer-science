@@ -4,6 +4,65 @@ title: "Operation Log"
 updated: 2026-04-08
 tags:
   - meta
+## 2026-07-03 architecture | Three-Layer Vault Overhaul (v2)
+
+- Type: architecture evolution
+- Key change: Wiki redefined as navigation layer; `playground/` created as hands-on learning space
+- Pages created:
+  - `playground/README.md` (playground concept)
+  - `playground/snake/LEARN.md` (IDE-ready snake learning guide)
+  - `playground/tetris/LEARN.md` (IDE-ready tetris learning guide)
+  - `playground/snake/Makefile` (simplified for learning)
+  - `playground/tetris/Makefile` (simplified for learning)
+  - `wiki/canvases/cs-knowledge-graph.canvas` (full CS dependency map)
+  - `wiki/canvases/snake-learning-map.canvas` (snake architecture visualization)
+- Pages updated: [[index]], [[hot]], CLAUDE.md
+- Design rationale: [[think-session-2026-07-03]] (10-principle analysis)
+
+## 2026-06-29 save | Agent-Generated Learning Path
+
+- Type: concept page
+- Summary: [[Agent-Generated Learning Path]]
+- Pages created: [[Agent-Generated Learning Path]]
+- Pages updated: [[index]], [[hot]]
+- Key insight: 当 GitHub 仓库没有配套教程时，Agent 可以生成代码学习路径——但验证责任从作者转移到学习者。核心工作流：代码侦查 → 依赖图排序 → 交互学习（先自解释再对照） → 交叉验证（改了能跑 = Agent 理解正确）。最重要的原则："先自解释，再看 Agent 解释"——顺序绝对不能反。educ8s 的教程是脚手架，学完 Tetris 后应该刻意切换到 Agent 生成路径模式。
+
+## 2026-06-29 ingest | educ8s/Cpp-Tetris-Game-with-raylib
+
+- Source: `.raw/github/educ8s-cpp-tetris-raylib-2026-06-29.md`
+- Summary: [[cpp-tetris-raylib]]
+- Pages created: [[cpp-tetris-raylib]] (source), [[Cpp-Tetris-Architecture-Learning]] (concept)
+- Pages updated: [[index]], [[hot]]
+- Key insight: Snake 和 Tetris 共享 raylib + C++ 技术栈但采用完全不同的架构（Scene 多态 vs Block 继承树）——是理解"同一技术栈、不同设计"的最小可行案例。Tetris 项目新手友好度评分 83/100。从 Snake 到 Tetris 是自然的复杂度升级。
+
+## 2026-06-29 autoresearch | 为编程新手推荐 GitHub 学习仓库
+
+- Rounds: 3 | Sources fetched: 15+
+- Pages created: [[Research-为编程新手推荐-GitHub-学习仓库]] (synthesis), [[GitHub Repo Learning Evaluation Checklist]] (concept), [[github-learning-repo-research]] (source)
+- Pages updated: [[index]], [[hot]]
+- Key finding: 推荐 **educ8s/Cpp-Tetris-Game-with-raylib** 作为下一个学习仓库。技术栈与用户蛇项目完全一致（raylib + C++），每行代码有视频教程，代码/环境三层解构清晰。建立了仓库评估体系（新手友好度评分 + 三层解构模型）。
+
+## 2026-06-28 autoresearch | GitHub 开源项目学习法可行性
+
+- Rounds: 3 | Sources fetched: 12+
+- Pages created: [[Research-GitHub-开源项目学习法可行性]] (synthesis), [[Code Reading as Learning Strategy]] (concept), [[Developer Knowledge Base Pattern]] (concept), [[github-codebase-learning-research]] (source)
+- Pages updated: [[index]], [[hot]]
+- Key finding: 以 GitHub 开源项目为原点学习编程不仅可行，且有强学术证据支持（ACM SAC 2024 RCT、ICSE 2025 等）。核心方法：结构化代码阅读 + 自解释 + 动手验证 + 知识库沉淀。新手需要更小范围、更多支架、更频繁验证。
+
+## 2026-06-28 ingest | Learning Cognition Batch — 学习认知四篇
+
+- Sources: `.raw/合意困难-Desirable-Difficulties.md`, `.raw/渐进摘要-Progressive-Summarization.md`, `.raw/知识库的正确打开方式-KB-Correct-Usage-Pattern.md`, `.raw/认知卸载-Cognitive-Offloading.md`
+- Summary: [[learning-cognition-batch]]
+- Pages created: [[合意困难-Desirable-Difficulties]], [[渐进摘要-Progressive-Summarization]], [[知识库的正确打开方式-KB-Correct-Usage-Pattern]], [[认知卸载-Cognitive-Offloading]]
+- Pages updated: [[index]], [[hot]]
+- Key insight: 四篇文章构成从「为什么」到「怎么做」的完整元学习框架。核心操作原则贯穿四篇：卸载机械，保留认知。这是关于本知识库正确使用方式的操作手册。
+
+## 2026-06-23 ingest | Snake Game raylib Port + Curriculum Headers
+- Sources: `.raw/*.cpp`, `.raw/*.h` (13 files), `.raw/snake-headers/*.h` (5 files)
+- Summary: [[snake-game-raylib]], [[snake-curriculum-headers]]
+- Pages created: [[snake-game-raylib]], [[snake-curriculum-headers]], [[Procedural Audio for Games]], [[Scene State Machine Pattern]], [[Edge-Triggered Input]]
+- Pages updated: [[EasyX Graphics Library]] (contradiction note), [[snake-game-easyx]] (cross-ref), [[index]], [[hot]]
+- Key insight: The snake game was ported from Windows-only EasyX to cross-platform raylib, gaining a procedural audio system, polymorphic C++ scene architecture, and proper header files. The reverse-engineered curriculum headers bridge the EasyX→raylib gap for teaching.
   - log
 status: evergreen
 related:

@@ -4,8 +4,8 @@
   "title": "Ingest files into wiki vault",
   "titleGenerationStatus": "success",
   "createdAt": 1782116450596,
-  "updatedAt": 1782143180483,
-  "lastResponseAt": 1782143180483,
+  "updatedAt": 1782225969818,
+  "lastResponseAt": 1782225969818,
   "sessionId": "06189470-29cc-49a0-a4c6-282f4be44afc",
   "providerState": {
     "providerSessionId": "06189470-29cc-49a0-a4c6-282f4be44afc",
@@ -2129,11 +2129,11 @@
   },
   "usage": {
     "model": "opus",
-    "inputTokens": 131,
+    "inputTokens": 1695,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 130304,
+    "cacheReadInputTokens": 161152,
     "contextWindow": 200000,
-    "contextTokens": 130435,
-    "percentage": 65
+    "contextTokens": 162847,
+    "percentage": 81
   }
 }

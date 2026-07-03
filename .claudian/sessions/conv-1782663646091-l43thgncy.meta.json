@@ -1,0 +1,22 @@
+{
+  "id": "conv-1782663646091-l43thgncy",
+  "providerId": "claude",
+  "title": "Ingest Tetris GitHub project",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782663646092,
+  "updatedAt": 1783085603038,
+  "lastResponseAt": 1782664464880,
+  "sessionId": "7e00fd53-bbe9-4f72-bf2c-ef0896e2d9d4",
+  "providerState": {
+    "providerSessionId": "7e00fd53-bbe9-4f72-bf2c-ef0896e2d9d4"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 64,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 108416,
+    "contextWindow": 200000,
+    "contextTokens": 108480,
+    "percentage": 54
+  }
+}

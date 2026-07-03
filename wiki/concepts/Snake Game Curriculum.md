@@ -17,9 +17,11 @@ aliases:
   - "Snake Curriculum"
 related:
   - "[[snake-game-easyx]]"
+  - "[[snake-game-raylib]]"
   - "[[BFS Pathfinding for Game AI]]"
   - "[[EasyX Graphics Library]]"
   - "[[snake-game-call-graph]]"
+  - "[[snake-game-final-design]]"
 ---
 
 # Snake Game Curriculum -- 零基础 C++ 游戏开发课

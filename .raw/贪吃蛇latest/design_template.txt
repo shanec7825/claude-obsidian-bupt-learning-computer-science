@@ -1,0 +1,480 @@
+图形化版贪吃蛇概要设计
+
+
+1. 问题描述
+图形化版贪吃蛇是一个具有图形化用户界面的交互式游戏程序，需要实现窗口绘制、键盘控制、实时计分与游戏状态展示。
+本版本由 3 人小组合作开发，需要完成需求分析、界面设计、编码实现和测试工作。除了基本的单人游戏与计分功能外，我们还设计了双人对战以及人机对战模式等以增加游戏趣味性。
+2. 需求分析
+2.1 功能需求
+基础功能：
+创建游戏窗口。
+绘制 35×35 游戏地图。
+绘制蛇头、蛇身、食物、墙和障碍物。
+支持键盘控制蛇移动。
+支持实时计分。
+支持碰撞检测与游戏结束。
+支持重新开始游戏。
+拓展功能：
+开始菜单界面。
+暂停 / 继续。
+游戏结束界面。
+双人对战模式。
+人机对战模式。
+人机对战模式中的难度选择。
+单人模式中最高分记录。
+食物随机生成。
+加速游戏进程（按蛇的默认移动方向）。
+背景音乐与音效。
+2.2 输入 / 输出需求
+输入：
+键盘方向输入。
+加速、暂停、重开、退出按键。
+可选的人机对战难度。
+输出：
+游戏窗口画面。
+当前分数。
+当前游戏状态。
+游戏结束提示。
+3. 界面设计
+3.1 主界面布局
+主界面应包含：
+左侧或中央：游戏地图区域。
+右侧和或下方：分数、长度、状态、操作提示。
+游戏结束时：显示最终分数和重新开始提示。
+窗口布局大致为：
+┌──────────────────────┬──────────────┐
+│                      │  当前分数     │
+│    35 × 35 地图      │  最高分       │
+│                      │  当前状态     │
+│                      │  操作提示     │
+└──────────────────────┴──────────────┘
+3.2 显示要求
+地图格子大小固定（CELL_SIZE = 24px），避免移动时画面抖动。
+蛇头和蛇身应当明显区分（头部带蛇眼，身体节段渐缩 + 颜色渐深）。
+食物应当醒目（红色圆形 + 辉光效果）。
+墙与障碍物应能直观看出不可通过。（用黑色和灰色来表现）
+3.3 操作提示
+界面中可以显示简短的操作提示：
+W / A / S / D 或方向键：移动。
+Space：暂停 / 继续。
+R：重新开始。
+Shift / F：加速（4 倍速）。
+Esc：退出 / 返回菜单。
+4. 总体设计
+4.1 总体功能概述
+本系统实现三种游戏模式，用户通过菜单界面选择进入：
+按 1 → 经典模式
+按 2 → 双人模式
+按 3 → 人机对战模式
+三种模式特性对比（基于实际实现）：
+4.2 架构设计
+系统采用”场景驱动 + 模块分层”架构：
+顶层：main.cpp 负责窗口生命周期与场景调度
+场景层：scene.h/cpp 管理菜单和游戏两种场景的状态流转
+逻辑层：game.h/cpp 持有全部游戏状态，实现蛇移动、碰撞检测、食物/障碍物生成
+AI 层：ai.h/cpp 基于 BFS 实现 AI 对手的方向决策（仅人机模式调用）
+渲染层：render.h/cpp 负责全部图形绘制，只读 game 状态
+音频层：audio.h/cpp 负责 PCM 音效的代码合成与播放
+输入层：input.h/cpp 封装 raylib 键盘 API
+数据流方向：
+键盘输入 → scene（方向变更、暂停、重开）
+        → game（状态更新：移动 + 碰撞 + 增长）
+        → render（读取状态绘制画面）+ audio（触发音效）
+5. 自动机模型
+5.1 场景状态机
+系统在两种顶层场景间切换：
+              ┌──────────────┐
+         ────►│   MenuScene  │◄────
+        │     │  	(主菜单)    │     │
+        │     └──────┬───────┘     │
+        │            │ 按 3        │
+        │            ▼             │
+        │     ┌──────────────┐     │
+        │     │ 难度选择子菜单 │    │
+        │     │ (MenuScene 内) │   │
+        │     └──────┬───────┘    	│
+        │   按1/2/3  │             │ Esc
+        │            ▼             │
+        │     ┌──────────────┐     │
+        │     │  PlayScene   │─────┘
+        │     │  (游戏运行)   │
+        │     └──────────────┘
+        │
+        └── Esc（退出程序）
+场景切换时窗口尺寸同步变化：
+MenuScene：700 × 620 px
+PlayScene（经典）：1140 × 920 px
+PlayScene（PvP / Battle）：1180 × 920 px
+main.cpp 通过 Scene::next_scene() 读取切换意图，delete 旧场景后再 new 新场景，期间调用 SetWindowSize() 原地调整窗口大小。
+5.2 游戏状态机（PlayScene 内部）
+游戏内部存在四个状态：
+                     init_game / init_pvp / init_battle
+                             │
+                             ▼
+                     ┌───────────────┐
+            ────────►│    就绪        │
+           │         │ (started=false)│
+           │         └───────┬───────┘
+           │                 │ 首次有效方向按键
+           │                 ▼
+           │         ┌───────────────┐
+           │  Space  │    游戏中       │── R（重开）──┐
+           │  ┌─────►│ (started=true)  │◄──┐          │
+           │  │      └───┬───┬───────┘   │          │
+           │  │          │   │           │          │
+           │  │     Space│   │碰撞/地图满 │          │
+           │  │          │   │           │          │
+           │  │      ┌───┘   ▼           │          │
+           │  │      │  ┌──────────────┐ │          │
+           │  └──────┘  │   游戏结束     │─┘          │
+           │            │ (game_over)   │────────────┘
+           │            └──────────────┘   R（重开）
+           │
+           └── Esc（返回菜单）
+状态说明：
+5.3 每个移动周期的处理流程
+定时器触发（now - last_move >= interval）
+  │
+  ├─ 根据 mode 选择移动函数：
+  │    MODE_CLASSIC → move_snake()
+  │    MODE_PVP     → move_pvp_snakes()
+  │    MODE_BATTLE  → move_battle_snakes()（内含 ai_choose_direction()）
+  │
+  ├─ 碰撞检测（can_enter_cell）：墙 / 障碍物 / 自身 / 对方 / 头碰头
+  │    │
+  │    ├─ 无碰撞 → 执行移动：头进一格，若不增长则删尾，更新地图字符
+  │    │           若吃到食物 → score += 10，新食物生成
+  │    │
+  │    └─ 碰撞 → game_over = true，记录 death_reason
+  │
+  ├─ PvP / Battle：击杀奖励 → 存活方 pending_growth += 对方长度
+  │
+  └─ Battle 特有：AI 死亡 → respawn_ai() 在随机空位重生
+6. 全局数据结构设计
+6.1 坐标点 Point
+typedef struct point {
+    int row, col;
+} Point;
+用于表示蛇身各节在网格中的行列坐标。全部游戏坐标均以 (row, col) 序表示，row 范围 0 ～ map_size - 1，col 范围 0 ～ map_size - 1。
+6.2 游戏状态 GameState
+GameState 是所有游戏模式共享的核心状态结构体，定义于 game.h：
+typedef struct gamestate {
+    // ──── 地图 ────
+    char map[MAX_MAP_SIZE][MAX_MAP_SIZE];   // 40×40 字符网格（最大容量）
+    int map_size;                           // 实际地图尺寸（35）
+
+    // ──── 玩家蛇（P1 / 经典模式唯一玩家） ────
+    Point snake[MAX_SNAKE_LEN];     // 蛇身坐标数组（索引 0 = 头，length-1 = 尾）
+    int length;                     // 当前蛇身长度
+    int score;                      // 当前分数
+    int move_count;                 // 累计移动步数
+    int grow_step;                  // 自动成长间隔（默认 32）
+    Direction direction;            // 当前方向枚举
+    DeathReason death_reason;       // 死亡原因枚举
+    bool started;                   // 游戏是否已开始（首次方向输入后置 true）
+    bool paused;                    // 是否暂停
+    bool game_over;                 // 游戏是否结束
+    GameMode mode;                  // 当前游戏模式枚举
+    int food_eaten;                 // 吃食物累计次数
+    int pending_growth;             // 待兑现的击杀成长点数
+    int high_score;                 // 经典模式历史最高分（文件持久化）
+
+    // ──── 第二蛇（PvP 的 P2 / Battle 的 AI，复用 ai_snake 字段） ────
+    Point ai_snake[MAX_SNAKE_LEN];
+    int ai_length;
+    Direction ai_direction;
+    bool ai_is_alive;
+    int ai_score;
+    int ai_food_eaten;
+    int ai_pending_growth;
+    AIDifficulty ai_difficulty;
+    DeathReason ai_death_reason;
+
+    // ──── P2 方向存储（仅 PvP 模式使用） ────
+    Direction p2_direction;
+} GameState;
+设计要点：
+ai_snake 字段在 PvP 模式下复用为玩家 2 蛇身，在 Battle 模式下为 AI 蛇身，避免了重复定义。
+pending_growth 用于实现击杀奖励机制：击杀方获得对方当前全长度的成长点数，在后续若干次移动中逐步消费（每步消费 1 点，吃食物和自动成长的回合不消费）。
+地图字符编码采用单字符表示法：# = 墙，. = 空地，O = 障碍物，F = 食物，H = P1 蛇头，B = P1 蛇身，A = P2/AI 蛇头，C = P2/AI 蛇身。
+snake[] 数组采用队列式存储：头在索引 0，尾在索引 length - 1；移动时整体右移一位，新头写入索引 0。
+6.3 枚举类型
+// 方向枚举 —— 值与对应键盘字符一致，便于调试
+enum Direction   { UP = 'W', DOWN = 'S', LEFT = 'A', RIGHT = 'D' };
+
+// 死亡原因枚举
+enum DeathReason {
+    DEATH_NONE = 0,      // 未死亡
+    DEATH_WALL,          // 撞墙
+    DEATH_OBSTACLE,      // 撞障碍物
+    DEATH_BODY,          // 撞自身
+    DEATH_ENEMY_BODY,    // 撞对方蛇身
+    DEATH_HEAD_ON,       // 头碰头
+    DEATH_FULL_MAP       // 地图已满
+};
+
+// 游戏模式枚举
+enum GameMode { MODE_CLASSIC, MODE_PVP, MODE_BATTLE };
+
+// AI 难度枚举
+enum AIDifficulty { AI_EASY, AI_NORMAL, AI_HARD };
+6.4 场景类型与多态设计
+enum SceneType { SCENE_MENU, SCENE_PLAY, SCENE_EXIT };
+
+// 场景抽象基类
+struct Scene {
+    virtual ~Scene() = default;
+    virtual void update() = 0;                   // 每帧逻辑更新
+    virtual void render() = 0;                   // 每帧绘制
+    virtual SceneType next_scene() const = 0;    // 返回场景切换意图
+};
+
+// 菜单场景
+class MenuScene : public Scene {
+    SceneType _next = SCENE_MENU;
+    bool _showing_difficulty = false;            // 是否显示难度子菜单
+    AIDifficulty _selected_difficulty = AI_NORMAL;
+public:
+    GameMode selected_mode = MODE_CLASSIC;
+    void update() override;       // 处理菜单按键（1/2/3/Esc）
+    void render() override;       // 分流到 draw_menu 或 draw_difficulty_menu
+    SceneType next_scene() const override { return _next; }
+    AIDifficulty selected_difficulty() const { return _selected_difficulty; }
+};
+
+// 游戏场景
+class PlayScene : public Scene {
+    GameState _game;              // 持有的游戏状态
+    double _last_move = 0;        // 上次移动的时间戳（用于定时）
+    SceneType _next = SCENE_PLAY;
+    AIDifficulty _difficulty;     // AI 难度（仅 Battle 模式）
+    int _prev_food_eaten = 0;     // 以下三个用于音效触发状态追踪
+    int _prev_ai_food_eaten = 0;
+    bool _prev_game_over = false;
+
+    void restart_game();          // 重置游戏状态并播放开局音效
+public:
+    PlayScene(GameMode mode, AIDifficulty difficulty = AI_NORMAL);
+    void update() override;       // 输入处理 + 定时移动 + 音效触发
+    void render() override;       // 委托给 draw_game()
+    SceneType next_scene() const override { return _next; }
+};
+6.5 全局常量（game.h）
+6.6 地图字符编码表
+设计出发点：游戏状态在 map 二维数组中有冗余（蛇头蛇身坐标在 snake[] 中也有），但这种冗余带来的好处是碰撞检测和渲染时无须遍历 snake 数组去判断某格是否被占据，直接查 map 即可实现 O(1) 判断。
+7. 系统模块划分
+7.1 模块结构图
+┌──────────────────────────────────────────────────────┐
+│                     main.cpp                          │
+│            (窗口生命周期 / 场景调度 / 资源管理)          │
+├──────────┬──────────┬───────────┬──────────┬─────────┤
+│  scene   │  game    │  render   │  audio   │   ai    │
+│ (场景)   │ (逻辑)   │  (渲染)   │  (音频)  │  (AI)   │
+├──────────┴──────────┴───────────┴──────────┴─────────┤
+│                   input (输入封装)                     │
+├──────────────────────────────────────────────────────┤
+│                 raylib 图形 / 音频 / 输入库             │
+└──────────────────────────────────────────────────────┘
+7.2 模块依赖关系
+main.cpp
+  ├── scene.h/cpp  ──► game.h, render.h, input.h, audio.h
+  ├── render.h/cpp ──► game.h（只读）
+  ├── audio.h/cpp
+  └── input.h/cpp
+
+game.cpp  ──► ai.h（仅 move_battle_snakes() 调用 ai_choose_direction()）
+ai.cpp    ──► game.h（只读 GameState）
+7.3 模块功能描述
+7.4 关键函数接口
+8. 高层算法设计
+8.1 蛇移动通用算法
+输入：GameState, 蛇身数组 body[], 蛇长 *len, 方向 dir, 分数 *score, pending_growth*
+前提：game->started && !paused && !game_over
+
+1.  计算 next = (old_head.row + dr[dir], old_head.col + dc[dir])
+2.  判定 will_eat = (map[next] == 'F')
+3.  判定 auto_grow = ((move_count + 1) % grow_step == 0)
+4.  判定 has_pending = (pending_growth > 0)
+5.  effective_grow = will_eat || auto_grow || has_pending
+6.  调用 can_enter_cell(next, effective_grow, body, *len) 做碰撞检测
+    - 若碰撞 → game_over = true，death_reason 赋值，return
+7.  若不增长 → 清除尾部 map 标记（置为 '.'）
+8.  若增长 → *len += 1（上限 MAX_SNAKE_LEN）
+9.  若有 pending 且非吃食物非自动增长 → pending_growth -= 1
+10. 旧头变身体（body_char），数组右移一位，新头写入 body[0]
+11. 新头位置 map 标记为 head_char
+12. move_count++
+13. 若吃到食物 → *score += 10，*food_eaten++，随机放置新食物
+增长优先级：pending_growth 只有在非吃食物、非自动增长的回合才被消费，确保三个增长来源不重叠。
+8.2 碰撞检测算法（can_enter_cell）
+输入：GameState*, 目标坐标 next, 是否会增长 will_grow, 蛇身数组, 蛇长
+输出：bool（可通行），DeathReason（死亡原因）
+
+规则（按优先级）：
+- map[next] == '#'       → DEATH_WALL
+- map[next] == 'O'       → DEATH_OBSTACLE
+- map[next] == 'B'/'C'   → 若 !will_grow 且 next == body[length-1] → 允许（尾部即将移走）
+                           否则 DEATH_BODY / DEATH_ENEMY_BODY
+- map[next] == 'H'/'A'   → DEATH_HEAD_ON（对方蛇头）
+- 其他                    → 允许
+允许通过自身即将移除的尾部这一特殊处理，保证了蛇在非增长回合可以沿自身方向无冲突移动。
+8.3 对战模式碰撞决议（PvP / Battle 共用）
+1. 同时计算 P1_next 和 P2_next
+2. 检查碰撞（优先级顺序）：
+   a. is_same_point(P1_next, P2_next)
+      → 双方均死（DEATH_HEAD_ON）
+   b. P1_next 在 P2 身体上
+      → P1 死，P2 获 P1 长度奖励（pending_growth += game->length）
+   c. P2_next 在 P1 身体上
+      → P2 死，P1 获 P2 长度奖励（pending_growth += game->ai_length）
+   d. P1_next 撞墙 / 障碍物 → P1 死
+   e. P2_next 撞墙 / 障碍物 → P2 死
+   f. P1_next 撞自身 → P1 死
+   g. P2_next 撞自身 → P2 死
+3. 执行结果：
+   - 双方均死 → 游戏结束
+   - 一方死 → 存活方执行移动，游戏结束（Battle：AI 死则 respawn）
+   - 双方活 → 分别执行 apply_snake_move()
+4. 确保地图始终保持 ≥ 2 个食物
+碰撞优先级保证了：头碰头同时死亡 > 互撞身体按先检查的为准 > 各自独立碰墙/碰自身。
+8.4 AI 寻路算法
+AI 系统的核心是 BFS 寻路，封装在 ai.cpp 中，通过 ai_choose_direction() 按难度分发。
+核心数据结构：
+int dist[MAX_MAP_SIZE][MAX_MAP_SIZE] — BFS 距离矩阵，-1 表示不可达
+Node q[MAX_SNAKE_LEN] — BFS 队列（静态数组，避免动态分配）
+四个方向常量数组：AI_DR[4] = {-1, 0, 1, 0}，AI_DC[4] = {0, -1, 0, 1}，AI_DIR[4] = {UP, LEFT, DOWN, RIGHT}
+三级难度策略对比：
+安全检测算法（Hard 难度，ai_can_reach_tail_after_move）：
+输入：GameState*, 候选方向 d
+输出：bool（移动后能否到达尾部）
+
+1. 复制当前 map 到 sim[MAX_MAP_SIZE][MAX_MAP_SIZE]
+2. 判定 will_grow = 此步会吃食物 || 此步是自动成长步
+3. 若 !will_grow → sim[尾部] = '.'（模拟尾移除）
+4. sim[旧头] = 'C'，sim[新头] = 'A'（模拟移动后的地图）
+5. 计算新尾部坐标：
+   - 若 will_grow → 旧尾部不变
+   - 否则 → 取 body[len-2]（原尾部前一个元素）
+6. BFS 搜索：新头 → 新尾部
+7. 返回是否可达
+该算法保证了 Hard 难度 AI 在蛇身较长时不会走入死胡同。
+Easy 难度特殊说明：Easy 难度不使用 BFS 计算精确最短路径，而是用曼哈顿距离 |row - food_row| + |col - food_col| 评估四个相邻格，选择距离食物最近的方向。由于曼哈顿距离忽略了障碍物和蛇身的阻挡，Easy AI 经常”看起来在想但又不完全想”——这符合 Easy 难度的设计意图。
+8.5 食物生成算法
+1. 遍历 map，收集所有 '.' 单元格到 cells[] 数组
+2. 若 cells 数量为 0 → game_over = true，death_reason = DEATH_FULL_MAP，return
+3. idx = rand() % count
+4. map[cells[idx]] = 'F'
+食物生成在每步移动后进行，确保地图上始终有食物。在 PvP / Battle 模式中，额外维护至少 2 个食物的约束。
+8.6 障碍物生成算法
+输入：GameState*, 期望障碍物数量 count
+
+1. 收集所有内部空地格（不含边缘墙）到 cells[]，总数 total
+2. 上限 = total / 4（不超过空地格数的 25%，保证可玩性）
+3. count = min(count, 上限)
+4. 若 count ≤ 0 → 返回
+5. 对 i = 0 到 count-1：
+   j = i + rand() % (total - i)
+   map[cells[j]] = 'O'
+   swap(cells[i], cells[j])
+该算法保证：障碍物随机分布、不重复、数量可控、不会导致地图不可玩。
+8.7 AI 重生算法（Battle 模式）
+1. 清除 AI 旧蛇身的地图标记（map 中 'A'、'C' → '.'）
+2. 收集所有空地格到 cells[]
+3. 尝试最多 200 次：
+   随机选起始位置 start
+   检查 start 纵向连续 3 格是否全为 '.'
+   若是 → 放置 3 节竖直蛇身，方向 UP，成功
+4. 若 200 次未成功 → 保底：随机放 1 节蛇身
+5. 重置 AI 分数、吃食物计数、pending_growth 为 0
+6. 确保地图 ≥ 2 个食物
+8.8 程序化音效合成
+全部音效由代码合成 PCM 波形，参数为 22050Hz / 16-bit / 单声道，通过 raylib 的 LoadSoundFromWave 加载。使用线性衰减包络 1.0 - t/duration 避免播放结束时的爆音。
+8.9 中文字体加载策略
+1. 构造字体路径列表：["C:/Windows/Fonts/simhei.ttf", "C:/Windows/Fonts/msyh.ttc"]
+2. 构造所需码点数组：
+   - ASCII 32-126（英文 + 数字 + 符号）
+   - 游戏用到中文字符（从源码提取，约 100+ 字，UTF-8 → 码点转换）
+3. 依次尝试 LoadFontEx(font_path, 48, codepoints, cp_count)
+4. 若 glyphCount > 0 → 成功，break
+5. 若全部失败 → 回退 GetFontDefault()
+只加载游戏实际用到的中文字符码点（而非完整字库），显著减小字体纹理的内存占用。
+特性 | 经典模式 | 人机对战模式 | 双人对战模式
+地图大小 | 35×35 | 35×35 | 35×35
+玩家数量 | 1 | 1 + 1 AI | 2
+控制方式 | WASD / 方向键 | WASD / 方向键 | P1: WASD，P2: 方向键
+蛇间碰撞 | 无 | 有（碰头致死 + 转化增长） | 有（碰头致死 + 转化增长）
+AI 对手 | 无 | BFS 寻路，三级难度 | 无
+障碍物数量 | 30个随机 | 30 个随机 | 30 个随机
+加速功能 | 有（Shift / F） | 有（Shift / F） | 有（Shift / F）
+食物数量 | 1 | 至少 2 | 至少 2
+默认起始位置 | 蛇 (8,5) 左上方 | 蛇 (17,7) 左 / AI (17,27) 右 | 蛇 (17,7) 左 / 蛇 (17,27) 右
+自动成长 | 每 32 步 +1 节 | 每 32 步 +1 节 | 每 32 步 +1 节
+击杀奖励 | 无 | 有（获对方长度） | 有（获对方长度）
+状态 | started | paused | game_over | 行为
+就绪 | false | false | false | 蛇不移动，等待首次方向输入
+游戏中 | true | false | false | 按 MOVE_INTERVAL_MS（160ms）定时移动，接受方向输入
+暂停 | true | true | false | 停止移动，保留全部状态
+游戏结束 | true | false | true | 停止移动，显示死亡原因和分数
+常量 | 值 | 说明
+MAP_SIZE | 35 | 默认地图尺寸
+MAX_MAP_SIZE | 40 | 最大地图容量（数组安全边界）
+BATTLE_MAP_SIZE | 35 | 对战模式地图尺寸
+MAX_SNAKE_LEN | 1600 (40 × 40) | 蛇身理论最大长度
+CELL_SIZE | 24 | 每格像素大小
+BOARD_LEFT | 32 | 棋盘区域左偏移（px）
+BOARD_TOP | 48 | 棋盘区域上偏移（px）
+MENU_WINDOW_WIDTH | 700 | 菜单窗口宽度
+MENU_WINDOW_HEIGHT | 620 | 菜单窗口高度
+CLASSIC_WINDOW_WIDTH | 1140 | 经典模式窗口宽度
+CLASSIC_WINDOW_HEIGHT | 920 | 经典模式窗口高度
+BATTLE_WINDOW_WIDTH | 1180 | PvP / Battle 模式窗口宽度
+BATTLE_WINDOW_HEIGHT | 920 | PvP / Battle 模式窗口高度
+MOVE_INTERVAL_MS | 160 | 移动间隔（ms）
+GROW_STEP | 32 | 自动成长步数间隔
+字符 | 含义 | 占用者
+# | 墙壁 | —
+. | 空地 | —
+O | 障碍物 | —
+F | 食物 | —
+H | P1 蛇头 | Player 1
+B | P1 蛇身 | Player 1
+A | P2/AI 蛇头 | Player 2 / AI
+C | P2/AI 蛇身 | Player 2 / AI
+模块 | 源文件 | 功能
+主程序 | main.cpp | 初始化图形窗口（InitWindow），创建场景对象，驱动场景循环（update + render），场景切换时调整窗口尺寸，程序结束时释放资源。初始化时通过 ImmAssociateContext 禁用中文输入法干扰
+场景管理 | scene.h/cpp | 定义 Scene 抽象基类及其两个派生类。MenuScene：菜单 + 难度子菜单的按键处理与渲染分流。PlayScene：游戏主循环（输入分发、定时移动、移动模式分发、音效触发状态追踪、restart_game）
+游戏逻辑 | game.h/cpp | 定义全部全局常量、枚举类型、Point 和 GameState 结构体。实现：地图初始化（init_game / init_pvp / init_battle）、蛇移动（move_snake / move_pvp_snakes / move_battle_snakes）、通用碰撞检测（can_enter_cell）、通用单蛇移动（apply_snake_move）、食物随机生成（place_food）、障碍物生成（Fisher-Yates 部分洗牌）、AI 重生（respawn_ai）、最高分文件读写（load/save_high_score）
+AI 寻路 | ai.h/cpp | 实现 ai_choose_direction() 分发函数 + 三级难度策略函数（ai_dir_easy / ai_dir_normal / ai_dir_hard）。内部包含：BFS 距离计算（ai_bfs_from_food）、BFS 路径搜索（ai_bfs_path）、可达空格计数（ai_free_count）、尾可达性安全模拟（ai_can_reach_tail_after_move）、合法方向收集（collect_valid_dirs）
+输入处理 | input.h/cpp | 封装 raylib 的 IsKeyPressed（边沿触发）和 IsKeyDown（电平触发）为 is_key_pressed() 和 is_key_held()，供场景层统一调用
+画面渲染 | render.h/cpp | 定义 18 个全局颜色常量。实现：字体加载（init_render_resources，加载 simhei.ttf / msyh.ttc 中文 TTF，按需加载码点）；棋盘绘制（draw_board：逐格绘制 + 棋盘格底色 + 蛇体圆角渐缩渲染 + 蛇眼 + 食物脉冲动画 + 网格线 + 粗边框）；信息面板绘制（draw_panel：按模式渲染分数/长度/状态/操作提示）；游戏结束遮罩（draw_game_over：半透明遮罩 + 圆角卡片 + 死亡原因）；菜单绘制（draw_menu / draw_difficulty_menu：居中布局 + 高亮条）
+音频模块 | audio.h/cpp | 实现 PCM 波形的代码合成（无需外部音频文件）。包含：gen_tone 通用正弦波合成（带线性衰减包络）、gen_eat_sound（440 → 880Hz 上升音，150ms）、gen_death_sound（400 → 120Hz 下降音，500ms）、gen_start_sound（C5-E5-G5 三段琶音，300ms）、gen_move_sound（120Hz 短促音，30ms）。参数：22050Hz，16-bit，单声道。通过 raylib 的 LoadSoundFromWave 加载为 Sound 对象，PlaySound 播放
+模块 | 函数 | 参数 | 返回 | 说明
+game | init_game | GameState*, GameMode | void | 初始化经典模式：蛇 (8,5) 起，3 节，方向 UP，35×35，12 障碍物，1 食物
+game | init_pvp_game | GameState* | void | 初始化双人对战：两条蛇左右分开起，各 3 节，30 随机障碍物，2 食物
+game | init_battle_game | GameState*, AIDifficulty | void | 初始化人机对战：玩家 + AI 左右分开起，30 障碍物，2 食物
+game | set_direction | GameState*, Direction | void | 设置 P1 方向（含反向检测 is_opposite）
+game | set_p2_direction | GameState*, Direction | void | 设置 P2 方向（PvP 专用，复用 ai_direction 字段）
+game | move_snake | GameState* | void | 经典模式单步移动：碰撞 → 结束，否则移动 + 增长 + 食物
+game | move_pvp_snakes | GameState* | void | PvP 双人同时移动：碰撞决议 + 击杀奖励 + 确保 2 食物
+game | move_battle_snakes | GameState* | void | Battle 移动：P1 + AI 同时 + AI 重生 + 确保 2 食物
+game | generate_obstacles | GameState*, int | void | Fisher-Yates 洗牌选 count 个空地，上限为总空地 25%
+game | respawn_ai | GameState* | void | AI 死亡后清屏 → 随机空位重生 3 节 → 方向 UP
+ai | ai_choose_direction | const GameState*, AIDifficulty | Direction | AI 决策入口，dispatch 到三级难度
+render | init_render_resources | — | void | 加载中文字体（优先 simhei.ttf，回退 msyh.ttc，最终回退默认）
+render | draw_game | const GameState* | void | 总绘制入口：棋盘 + HUD + 结束遮罩
+audio | init_audio | — | void | 初始化音频设备 + 合成 4 种音效 + LoadSoundFromWave
+audio | audio_play_eat / death / start / move | — | void | 各音效播放函数，内部调用 PlaySound
+input | is_key_pressed | int key | bool | 边沿触发（按键按下的那一帧为 true）
+input | is_key_held | int key | bool | 电平触发（按键按住期间每帧为 true）
+阶段 | Easy | Normal | Hard
+寻路方式 | 曼哈顿距离贪心：|next - food| 最小 | BFS 从食物反向计算距离，选 dist 最小的相邻格 | 同 Normal 的 BFS
+随机扰动 | 30% 概率选随机合法方向 | 15% 概率选随机合法方向 | 无随机扰动
+安全检测 | 无 | 无 | 身长 ≥ 105 时：模拟向前一步后 BFS 检查能否到达尾部
+后备 1 | 选可达空格最多的方向（ai_free_count BFS） | 同 Easy | 同 Easy
+后备 2 | 遍历四方向选第一个可通行的 | 同 Easy | 同 Easy
+最终保底 | 维持当前方向 | 维持当前方向 | 维持当前方向
+音效 | 频率曲线 | 时长 | 说明
+吃食物 | 440Hz 线性升至 880Hz | 150ms | 配合 0.4 振幅，短促上升感
+死亡 | 400Hz 线性降至 120Hz | 500ms | 配合 0.5 振幅，下降感
+开局 | C5(523Hz) → E5(659Hz) → G5(784Hz) | 300ms（每音 100ms） | 琶音上行
+移动 | 120Hz 固定 | 30ms | 0.15 低振幅短促音

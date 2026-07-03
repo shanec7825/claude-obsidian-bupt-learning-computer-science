@@ -6,47 +6,252 @@
     ".raw/claude-obsidian-ecosystem-research.md": {
       "hash": "9d4b41948eef44dfde851fb765ad7f208cde0c8318fc3a8c0e7cbcafaa9ce62d",
       "ingested_at": "2026-06-22",
-      "pages_created": ["wiki/sources/claude-obsidian-ecosystem-research.md", "wiki/entities/Ar9av-obsidian-wiki.md", "wiki/entities/Nexus-claudesidian-mcp.md", "wiki/entities/ballred-obsidian-claude-pkm.md", "wiki/entities/rvk7895-llm-knowledge-bases.md", "wiki/entities/kepano-obsidian-skills.md", "wiki/entities/Claudian-YishenTu.md"],
-      "pages_updated": ["wiki/index.md"]
+      "pages_created": [
+        "wiki/sources/claude-obsidian-ecosystem-research.md",
+        "wiki/entities/Ar9av-obsidian-wiki.md",
+        "wiki/entities/Nexus-claudesidian-mcp.md",
+        "wiki/entities/ballred-obsidian-claude-pkm.md",
+        "wiki/entities/rvk7895-llm-knowledge-bases.md",
+        "wiki/entities/kepano-obsidian-skills.md",
+        "wiki/entities/Claudian-YishenTu.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md"
+      ]
     },
     ".raw/ai": {
       "hash": "c083b9b7d52792e3914b67da5d6c75f2503b3a2fa1d3ef2df0ee7086573b6176",
       "ingested_at": "2026-06-22",
-      "pages_created": ["wiki/sources/snake-game-easyx.md", "wiki/concepts/BFS Pathfinding for Game AI.md", "wiki/concepts/EasyX Graphics Library.md"],
-      "pages_updated": ["wiki/index.md", "wiki/log.md", "wiki/hot.md"]
+      "pages_created": [
+        "wiki/sources/snake-game-easyx.md",
+        "wiki/concepts/BFS Pathfinding for Game AI.md",
+        "wiki/concepts/EasyX Graphics Library.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md"
+      ]
     },
     ".raw/game": {
       "hash": "4704acf1024bf513eb3a7345f4b762126de611131e087298e131fd5cc1f65620",
       "ingested_at": "2026-06-22",
       "pages_created": [],
-      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+      "pages_updated": [
+        "wiki/sources/snake-game-easyx.md"
+      ]
     },
     ".raw/input": {
       "hash": "b1bbcb24e85d5b9b487f0de61400d8223cf0e0fa0e7460a9f4e58dd907ad109f",
       "ingested_at": "2026-06-22",
       "pages_created": [],
-      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+      "pages_updated": [
+        "wiki/sources/snake-game-easyx.md"
+      ]
     },
     ".raw/main": {
       "hash": "c59fdee82ad447503830afff50fd4c37768312fb84e4d84db9d6e0f15726db66",
       "ingested_at": "2026-06-22",
       "pages_created": [],
-      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+      "pages_updated": [
+        "wiki/sources/snake-game-easyx.md"
+      ]
     },
     ".raw/render": {
       "hash": "74d0f3237318451bc6135df5d419a1242da3e1121ff6247669c57f835012f7b7",
       "ingested_at": "2026-06-22",
       "pages_created": [],
-      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+      "pages_updated": [
+        "wiki/sources/snake-game-easyx.md"
+      ]
     },
     ".raw/scene": {
       "hash": "2858044007702053b062fdede749fbf4a9e7bbff4bc1fbfac20e95d77996bf41",
       "ingested_at": "2026-06-22",
       "pages_created": [],
-      "pages_updated": ["wiki/sources/snake-game-easyx.md"]
+      "pages_updated": [
+        "wiki/sources/snake-game-easyx.md"
+      ]
+    },
+    ".raw/audio.cpp": {
+      "hash": "d767040b8065942c8e85cc8d4f5e19f81872bcf40cacf2bfcb1500aa5431e651",
+      "ingested_at": "2026-06-23",
+      "pages_created": [
+        "wiki/sources/snake-game-raylib.md",
+        "wiki/concepts/Procedural Audio for Games.md",
+        "wiki/concepts/Scene State Machine Pattern.md",
+        "wiki/concepts/Edge-Triggered Input.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md",
+        "wiki/concepts/EasyX Graphics Library.md",
+        "wiki/sources/snake-game-easyx.md"
+      ]
+    },
+    ".raw/audio.h": {
+      "hash": "96ae6b1ef450c50024827febd7fb9da0ea05788332cf48edce04ac1092c4940d",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/game.cpp": {
+      "hash": "0a88bacab11168c150373909caf96b66069d9baacdbdd77497bacc6d1e6cd6b4",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/game.h": {
+      "hash": "35823905be44aa5f502192e3a238586b2af5684ddeb08ac202e822681d952742",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/input.cpp": {
+      "hash": "cb33b57dc1f0082fe2c030eb908b2c9afd56761d40960f292efd53af83cba8c3",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/input.h": {
+      "hash": "ced145c2bc87552198e060ca649bd88aaaaa62d66e200ae0500228de548181d2",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/main.cpp": {
+      "hash": "374ac8bb692245b6c92e2945db8b2d94e595329def979e7221fbcbb7920d84fd",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/render.cpp": {
+      "hash": "fb406771f3344406124d176d158218cd9b6f84a4033abb063a2e31a356154a0e",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/render.h": {
+      "hash": "a74a3f66d105f6d702f63aa7ac2afdc96ca9819d8975203497b2fff61db5aad7",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/scene.cpp": {
+      "hash": "9f55cf1b209151d1d0b2b5182804469668b17d0a3c2490b637f5db010b55c517",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/scene.h": {
+      "hash": "8e97b6bd8bbfcd30ff1e8684b51a9e5d775495d4505d1a503fe9fbfb874f9909",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/ai.cpp": {
+      "hash": "c083b9b7d52792e3914b67da5d6c75f2503b3a2fa1d3ef2df0ee7086573b6176",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/ai.h": {
+      "hash": "e3847acf94d042c292daceb4cc24eef5d088ecba3b95bd0f0d12c2584f0c0f38",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/snake-headers/game.h": {
+      "hash": "c11149f877a1560ff984acab9725feb1b309706395ef93fd56b4bb53a099f173",
+      "ingested_at": "2026-06-23",
+      "pages_created": [
+        "wiki/sources/snake-curriculum-headers.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md"
+      ]
+    },
+    ".raw/snake-headers/ai.h": {
+      "hash": "824dfcd765bff9c7475468ac5cabaaf7459c4f1b5678f378c73195253997c585",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/snake-headers/input.h": {
+      "hash": "2d18fc5751f08b06a7db4762e687cbf9a513be9f2221a39c62f0158202b73e31",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/snake-headers/render.h": {
+      "hash": "4aaf42bd94eef8022dd2f848047493b9c4df373701b3c37a2275363ee921adc3",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/snake-headers/scene.h": {
+      "hash": "99f9cbab579eed1f1ca202e079bb7a46942d283446c4447079093a83b0c95b9a",
+      "ingested_at": "2026-06-23",
+      "pages_created": [],
+      "pages_updated": []
+    },
+    ".raw/合意困难-Desirable-Difficulties.md": {
+      "hash": "a7cfae912ab6d0126448785378e0fcb5",
+      "ingested_at": "2026-06-28",
+      "pages_created": [
+        "wiki/concepts/合意困难-Desirable-Difficulties.md",
+        "wiki/sources/learning-cognition-batch.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md"
+      ]
+    },
+    ".raw/渐进摘要-Progressive-Summarization.md": {
+      "hash": "362d6a9564e87da1aad1f37c978f61a9",
+      "ingested_at": "2026-06-28",
+      "pages_created": [
+        "wiki/concepts/渐进摘要-Progressive-Summarization.md"
+      ],
+      "pages_updated": []
+    },
+    ".raw/知识库的正确打开方式-KB-Correct-Usage-Pattern.md": {
+      "hash": "e375e978b2b4af8a45cf15ef19893efe",
+      "ingested_at": "2026-06-28",
+      "pages_created": [
+        "wiki/concepts/知识库的正确打开方式-KB-Correct-Usage-Pattern.md"
+      ],
+      "pages_updated": []
+    },
+    ".raw/认知卸载-Cognitive-Offloading.md": {
+      "hash": "420c2b4dde0f7277bbd607a1e19a8088",
+      "ingested_at": "2026-06-28",
+      "pages_created": [
+        "wiki/concepts/认知卸载-Cognitive-Offloading.md"
+      ],
+      "pages_updated": []
+    },
+    ".raw/github/educ8s-cpp-tetris-raylib-2026-06-29.md": {
+      "hash": "77f6a72cdcfd61edf2d601c43eb540c8",
+      "ingested_at": "2026-06-29",
+      "pages_created": [
+        "wiki/sources/cpp-tetris-raylib.md",
+        "wiki/concepts/Cpp-Tetris-Architecture-Learning.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md"
+      ]
     }
   },
   "address_map": {
-    "wiki/concepts/DragonScale Memory.md": "c-000001"
+    "wiki/concepts/DragonScale Memory.md": "c-000001",
+    "wiki/sources/cpp-tetris-raylib.md": "c-000003",
+    "wiki/concepts/Cpp-Tetris-Architecture-Learning.md": "c-000005"
   }
 }

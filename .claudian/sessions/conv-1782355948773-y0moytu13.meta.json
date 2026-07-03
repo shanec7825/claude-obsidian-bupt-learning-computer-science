@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782355948773-y0moytu13",
+  "providerId": "claude",
+  "title": "Analyze raylib multithreading",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782355948774,
+  "updatedAt": 1782383951584,
+  "lastResponseAt": 1782357854133,
+  "sessionId": "c0d0fe00-b16b-4d68-a13a-daf4d5075ba1",
+  "providerState": {
+    "providerSessionId": "c0d0fe00-b16b-4d68-a13a-daf4d5075ba1"
+  },
+  "currentNote": "wiki/concepts/snake-curriculum/ch5-ai-pathfinding.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 1206,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 74368,
+    "contextWindow": 1000000,
+    "contextTokens": 75574,
+    "percentage": 8,
+    "contextWindowIsAuthoritative": true
+  }
+}

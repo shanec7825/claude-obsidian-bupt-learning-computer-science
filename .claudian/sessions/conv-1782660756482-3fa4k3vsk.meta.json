@@ -1,0 +1,22 @@
+{
+  "id": "conv-1782660756482-3fa4k3vsk",
+  "providerId": "claude",
+  "title": "Ingest cognition articles into wiki",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782660756482,
+  "updatedAt": 1782663550261,
+  "lastResponseAt": 1782662962121,
+  "sessionId": "49fb7032-37fd-40e0-8c06-ae15c3efe6a3",
+  "providerState": {
+    "providerSessionId": "49fb7032-37fd-40e0-8c06-ae15c3efe6a3"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 736,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 162048,
+    "contextWindow": 200000,
+    "contextTokens": 162784,
+    "percentage": 81
+  }
+}

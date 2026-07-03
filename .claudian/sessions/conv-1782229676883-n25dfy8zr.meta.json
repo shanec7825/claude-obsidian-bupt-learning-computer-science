@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782229676883-n25dfy8zr",
+  "providerId": "claude",
+  "title": "Ingest all new source files",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782229676883,
+  "updatedAt": 1782355871354,
+  "lastResponseAt": 1782229968539,
+  "sessionId": "013f19fc-76b8-4718-af02-b8b835ae5b7d",
+  "providerState": {
+    "providerSessionId": "013f19fc-76b8-4718-af02-b8b835ae5b7d"
+  },
+  "currentNote": "wiki/concepts/snake-curriculum/ch6-multiplayer.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 30,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 104832,
+    "contextWindow": 1000000,
+    "contextTokens": 104862,
+    "percentage": 10,
+    "contextWindowIsAuthoritative": true
+  }
+}

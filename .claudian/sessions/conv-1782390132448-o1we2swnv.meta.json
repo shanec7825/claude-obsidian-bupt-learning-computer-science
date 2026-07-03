@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782390132448-o1we2swnv",
+  "providerId": "claude",
+  "title": "Complete Snake game C++ template",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782390132448,
+  "updatedAt": 1782660698068,
+  "lastResponseAt": 1782450213637,
+  "sessionId": "dca7fac3-ebf8-46ba-8db8-ef5c5c5be813",
+  "providerState": {
+    "providerSessionId": "dca7fac3-ebf8-46ba-8db8-ef5c5c5be813"
+  },
+  "currentNote": "wiki/concepts/snake-curriculum/ch6-multiplayer.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 871,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 184192,
+    "contextWindow": 1000000,
+    "contextTokens": 185063,
+    "percentage": 19,
+    "contextWindowIsAuthoritative": true
+  }
+}

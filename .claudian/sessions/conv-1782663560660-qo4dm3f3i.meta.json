@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782663560660-qo4dm3f3i",
+  "providerId": "claude",
+  "title": "Ingest source files into wiki vault",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782663560661,
+  "updatedAt": 1782663625874,
+  "lastResponseAt": 1782663622137,
+  "sessionId": "e81f28de-2b96-4ccd-b15c-6770cd843088",
+  "providerState": {
+    "providerSessionId": "e81f28de-2b96-4ccd-b15c-6770cd843088"
+  },
+  "currentNote": "wiki/questions/Research-GitHub-开源项目学习法可行性.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 4581,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 68352,
+    "contextWindow": 200000,
+    "contextTokens": 72933,
+    "percentage": 36
+  }
+}

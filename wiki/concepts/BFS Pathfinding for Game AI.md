@@ -2,7 +2,7 @@
 type: concept
 title: "BFS Pathfinding for Game AI"
 created: 2026-06-22
-updated: 2026-06-22
+updated: 2026-06-29
 tags:
   - concept
   - ai
@@ -17,7 +17,13 @@ related:
 
 # BFS Pathfinding for Game AI
 
-> Breadth-First Search applied to grid-based game AI, with difficulty-tiered sophistication.
+> [!summary] 逐层摘要
+> **Layer 1 (初次理解)**: 
+> **Layer 2 (加粗关键)**: 
+> **Layer 3 (高亮核心)**: 
+> **Layer 4 (2-3 句自写总结)**: 
+
+---
 
 ## Overview
 
